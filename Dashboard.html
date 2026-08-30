@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AYUSH Care | Dashboard</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f7f7;
+
+            color: #17212b;
+
+        }
+
+
+        button {
+
+            font-family: inherit;
+
+            cursor: pointer;
+
+        }
+
+
+        /* ==============================
+           SIDEBAR
+        ============================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 240px;
+
+            background: #102b2a;
+
+            color: white;
+
+            padding: 22px 15px;
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 5px 8px 30px;
+
+        }
+
+
+        .logo {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 12px;
+
+            background: #d7f1ed;
+
+            color: #0f766e;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            font-weight: bold;
+
+        }
+
+
+        .brand-name {
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+        }
+
+
+        .brand-subtitle {
+
+            font-size: 10px;
+
+            color: #8da7a4;
+
+            margin-top: 4px;
+
+        }
+
+
+        .nav-title {
+
+            color: #76918d;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin: 15px 10px 8px;
+
+        }
+
+
+        .nav-button {
+
+            width: 100%;
+
+            border: none;
+
+            background: transparent;
+
+            color: #b8ccca;
+
+            text-align: left;
+
+            padding: 12px;
+
+            border-radius: 9px;
+
+            margin-bottom: 3px;
+
+            font-size: 13px;
+
+        }
+
+
+        .nav-button:hover {
+
+            background: #1b4542;
+
+            color: white;
+
+        }
+
+
+        .nav-button.active {
+
+            background: #1b4542;
+
+            color: white;
+
+        }
+
+
+        .doctor {
+
+            position: absolute;
+
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #31504e;
+
+            color: #8fa9a6;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .doctor strong {
+
+            color: white;
+
+            font-size: 12px;
+
+        }
+
+
+        /* ==============================
+           MAIN AREA
+        ============================== */
+
+        .main {
+
+            margin-left: 240px;
+
+            width: calc(100% - 240px);
+
+            padding: 30px;
+
+        }
+
+
+        .topbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 28px;
+
+        }
+
+
+        .kicker {
+
+            color: #0f766e;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        h1 {
+
+            font-size: 28px;
+
+            margin-top: 6px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .subtitle {
+
+            color: #71808c;
+
+            font-size: 12px;
+
+        }
+
+
+        .top-actions {
+
+            display: flex;
+
+            gap: 8px;
+
+        }
+
+
+        .button {
+
+            border: 1px solid #dfe6e6;
+
+            background: white;
+
+            padding: 10px 14px;
+
+            border-radius: 9px;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            color: #34434a;
+
+        }
+
+
+        .button:hover {
+
+            background: #f0f4f4;
+
+        }
+
+
+        .button-primary {
+
+            background: #0f766e;
+
+            border-color: #0f766e;
+
+            color: white;
+
+        }
+
+
+        .button-primary:hover {
+
+            background: #115e59;
+
+        }
+
+
+        /* ==============================
+           STATISTICS
+        ============================== */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            border: 1px solid #e2e8e8;
+
+            border-radius: 15px;
+
+            padding: 19px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.035);
+
+        }
+
+
+        .stat-label {
+
+            font-size: 11px;
+
+            color: #71808c;
+
+            font-weight: bold;
+
+        }
+
+
+        .stat-number {
+
+            font-size: 29px;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+
+        }
+
+
+        .stat-info {
+
+            color: #18784e;
+
+            font-size: 10px;
+
+            margin-top: 6px;
+
+        }
+
+
+        /* ==============================
+           CONTENT
+        ============================== */
+
+        .content-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1.5fr 1fr;
+
+            gap: 16px;
+
+            margin-top: 16px;
+
+        }
+
+
+        .card {
+
+            background: white;
+
+            border: 1px solid #e2e8e8;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.035);
+
+            padding: 20px;
+
+        }
+
+
+        .card-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .card-title {
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        .view-all {
+
+            border: none;
+
+            background: transparent;
+
+            color: #0f766e;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ==============================
+           PATIENT TABLE
+        ============================== */
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+        }
+
+
+        th {
+
+            text-align: left;
+
+            color: #8a969d;
+
+            font-size: 9px;
+
+            text-transform: uppercase;
+
+            padding: 10px 7px;
+
+            border-bottom:
+                1px solid #edf0f0;
+
+        }
+
+
+        td {
+
+            font-size: 11px;
+
+            padding: 13px 7px;
+
+            border-bottom:
+                1px solid #edf0f0;
+
+        }
+
+
+        tr:last-child td {
+
+            border-bottom: none;
+
+        }
+
+
+        .patient {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            font-weight: bold;
+
+        }
+
+
+        .avatar {
+
+            width: 31px;
+
+            height: 31px;
+
+            border-radius: 9px;
+
+            background: #e3f2ef;
+
+            color: #0f766e;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 9px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ==============================
+           STATUS
+        ============================== */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 20px;
+
+            font-size: 9px;
+
+            font-weight: bold;
+
+        }
+
+
+        .active-status {
+
+            background: #e6f6ed;
+
+            color: #16734a;
+
+        }
+
+
+        .follow-status {
+
+            background: #fff3dc;
+
+            color: #8b5b00;
+
+        }
+
+
+        .draft-status {
+
+            background: #fdebea;
+
+            color: #ae3026;
+
+        }
+
+
+        /* ==============================
+           QUICK ACTIONS
+        ============================== */
+
+        .quick-actions {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 9px;
+
+        }
+
+
+        .quick-button {
+
+            background: white;
+
+            border: 1px solid #e1e8e8;
+
+            border-radius: 10px;
+
+            padding: 15px;
+
+            text-align: left;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            color: #26373b;
+
+        }
+
+
+        .quick-button:hover {
+
+            border-color: #0f766e;
+
+            background: #f4faf9;
+
+        }
+
+
+        .quick-icon {
+
+            display: block;
+
+            font-size: 19px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* ==============================
+           CASE ACTIVITY
+        ============================== */
+
+        .trend-card {
+
+            margin-top: 16px;
+
+        }
+
+
+        .trend {
+
+            display: flex;
+
+            align-items: end;
+
+            gap: 10px;
+
+            height: 130px;
+
+            padding: 10px 5px;
+
+            border-bottom:
+                1px solid #e6ebeb;
+
+        }
+
+
+        .bar {
+
+            flex: 1;
+
+            background: #b9ddd8;
+
+            border-radius:
+                5px 5px 0 0;
+
+            min-height: 20px;
+
+        }
+
+
+        .bar:hover {
+
+            background: #0f766e;
+
+        }
+
+
+        .days {
+
+            display: flex;
+
+            justify-content:
+                space-around;
+
+            color: #8a969d;
+
+            font-size: 9px;
+
+            margin-top: 7px;
+
+        }
+
+
+        /* ==============================
+           MOBILE
+        ============================== */
+
+        @media(max-width: 900px) {
+
+            .sidebar {
+
+                width: 70px;
+
+            }
+
+
+            .brand-name,
+            .brand-subtitle,
+            .nav-title,
+            .nav-button span,
+            .doctor {
+
+                display: none;
+
+            }
+
+
+            .main {
+
+                margin-left: 70px;
+
+                width:
+                    calc(100% - 70px);
+
+                padding: 20px;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+            }
+
+
+            .content-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media(max-width: 600px) {
+
+            .topbar {
+
+                flex-direction:
+                    column;
+
+                align-items:
+                    flex-start;
+
+                gap: 15px;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .top-actions {
+
+                width: 100%;
+
+            }
+
+
+            .top-actions .button {
+
+                flex: 1;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ===================================
+         SIDEBAR
+    ==================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="logo">
+                A
+            </div>
+
+
+            <div>
+
+                <div class="brand-name">
+                    AYUSH Care
+                </div>
+
+                <div class="brand-subtitle">
+                    Patient Case Management
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="nav-title">
+            Practitioner
+        </div>
+
+
+        <button class="nav-button active">
+            📊
+            <span>Dashboard</span>
+        </button>
+
+
+        <button class="nav-button">
+            🔎
+            <span>Search / Patients</span>
+        </button>
+
+
+        <button class="nav-button">
+            🕐
+            <span>Patient Timeline</span>
+        </button>
+
+
+        <button class="nav-button">
+            🔔
+            <span>Follow-ups</span>
+        </button>
+
+
+        <button class="nav-button">
+            📄
+            <span>Summary / Export</span>
+        </button>
+
+
+        <div class="nav-title">
+            System
+        </div>
+
+
+        <button class="nav-button">
+            ⚙
+            <span>Settings</span>
+        </button>
+
+
+        <button class="nav-button">
+            ❓
+            <span>Help</span>
+        </button>
+
+
+        <div class="doctor">
+
+            Signed in as
+
+            <br>
+
+            <strong>
+                Dr. Sharma
+            </strong>
+
+            <br>
+
+            AYUSH Practitioner
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- ===================================
+         MAIN
+    ==================================== -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <div class="topbar">
+
+
+            <div>
+
+                <div class="kicker">
+                    SIH 2026 · SIH26047
+                </div>
+
+
+                <h1>
+                    Good morning, Dr. Sharma 👋
+                </h1>
+
+
+                <p class="subtitle">
+                    Here's what's happening
+                    with your practice today.
+                </p>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                <button class="button">
+                    🔔
+                </button>
+
+
+                <button class="button">
+                    🔎 Search
+                </button>
+
+
+                <button class="button button-primary">
+                    + New Patient
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STATISTICS -->
+
+        <div class="stats">
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    TOTAL PATIENTS
+                </div>
+
+                <div class="stat-number">
+                    128
+                </div>
+
+                <div class="stat-info">
+                    ↑ 8.4% this month
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    TODAY'S CASES
+                </div>
+
+                <div class="stat-number">
+                    24
+                </div>
+
+                <div class="stat-info">
+                    ↑ 4 from yesterday
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    PENDING FOLLOW-UPS
+                </div>
+
+                <div class="stat-number">
+                    18
+                </div>
+
+                <div class="stat-info">
+                    7 due this week
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    DRAFT CASES
+                </div>
+
+                <div class="stat-number">
+                    6
+                </div>
+
+                <div class="stat-info">
+                    Needs attention
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- PATIENTS + ACTIONS -->
+
+        <div class="content-grid">
+
+
+            <!-- RECENT PATIENTS -->
+
+            <div class="card">
+
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        Recent Patients
+                    </div>
+
+
+                    <button class="view-all">
+                        View all →
+                    </button>
+
+                </div>
+
+
+                <table>
+
+
+                    <tr>
+
+                        <th>
+                            Patient
+                        </th>
+
+                        <th>
+                            Last Visit
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="patient">
+
+                                <div class="avatar">
+                                    RK
+                                </div>
+
+                                Rahul Kumar
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            Today · 10:30 AM
+                        </td>
+
+
+                        <td>
+
+                            <span class="status active-status">
+                                Active
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="patient">
+
+                                <div class="avatar">
+                                    PS
+                                </div>
+
+                                Priya Sharma
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            Yesterday
+                        </td>
+
+
+                        <td>
+
+                            <span class="status follow-status">
+                                Follow-up
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="patient">
+
+                                <div class="avatar">
+                                    AM
+                                </div>
+
+                                Aman Mehta
+
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            27 Aug
+                        </td>
+
+
+                        <td>
+
+                            <span class="status draft-status">
+                                Draft
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+
+                </table>
+
+            </div>
+
+
+
+            <!-- QUICK ACTIONS -->
+
+            <div class="card">
+
+
+                <div class="card-header">
+
+                    <div class="card-title">
+                        Quick Actions
+                    </div>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+
+                    <button class="quick-button">
+
+                        <span class="quick-icon">
+                            ➕
+                        </span>
+
+                        Start New Case
+
+                    </button>
+
+
+                    <button class="quick-button">
+
+                        <span class="quick-icon">
+                            👤
+                        </span>
+
+                        Open Patient
+
+                    </button>
+
+
+                    <button class="quick-button">
+
+                        <span class="quick-icon">
+                            🔔
+                        </span>
+
+                        Follow-up
+
+                    </button>
+
+
+                    <button class="quick-button">
+
+                        <span class="quick-icon">
+                            📄
+                        </span>
+
+                        View Reports
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- CASE ACTIVITY -->
+
+        <div class="card trend-card">
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="card-title">
+                        Case Activity
+                    </div>
+
+                    <div class="subtitle">
+                        Patient visits over
+                        the last 7 days
+                    </div>
+
+                </div>
+
+
+                <button class="button">
+                    This week ▾
+                </button>
+
+            </div>
+
+
+            <div class="trend">
+
+
+                <div
+                    class="bar"
+                    style="height:45%">
+                </div>
+
+
+                <div
+                    class="bar"
+                    style="height:65%">
+                </div>
+
+
+                <div
+                    class="bar"
+                    style="height:52%">
+             
