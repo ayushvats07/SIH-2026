@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AYUSH Care | Patient Report</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7f7;
+    color: #17212b;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 240px;
+    background: #102b2a;
+    color: white;
+    padding: 22px 15px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 5px 8px 30px;
+}
+
+.logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #d7f1ed;
+    color: #0f766e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.brand-name {
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    color: #8da7a4;
+    margin-top: 4px;
+}
+
+.nav-title {
+    color: #76918d;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 15px 10px 8px;
+}
+
+.nav-button {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #b8ccca;
+    text-align: left;
+    padding: 12px;
+    border-radius: 9px;
+    margin-bottom: 3px;
+    font-size: 13px;
+}
+
+.nav-button:hover,
+.nav-button.active {
+    background: #1b4542;
+    color: white;
+}
+
+.doctor {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #31504e;
+    color: #8fa9a6;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.doctor strong {
+    color: white;
+    font-size: 12px;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 240px;
+    width: calc(100% - 240px);
+    padding: 30px;
+}
+
+/* HEADER */
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.kicker {
+    color: #0f766e;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+h1 {
+    font-size: 27px;
+    margin-top: 6px;
+}
+
+.subtitle {
+    color: #71808c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+.button {
+    border: 1px solid #dfe6e6;
+    background: white;
+    padding: 10px 14px;
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #34434a;
+}
+
+.button-primary {
+    background: #0f766e;
+    border-color: #0f766e;
+    color: white;
+}
+
+/* REPORT */
+
+.report {
+    background: white;
+    border: 1px solid #e2e8e8;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.035);
+    overflow: hidden;
+}
+
+.report-header {
+    padding: 25px;
+    border-bottom: 1px solid #e8eeee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.patient {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 15px;
+    background: #dff2ef;
+    color: #0f766e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.patient-name {
+    font-size: 19px;
+    font-weight: bold;
+}
+
+.patient-id {
+    color: #89959a;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+.status {
+    background: #e6f6ed;
+    color: #16734a;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+/* REPORT BODY */
+
+.report-body {
+    padding: 25px;
+}
+
+.section {
+    margin-bottom: 25px;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.section-subtitle {
+    font-size: 10px;
+    color: #89959a;
+    margin-top: -7px;
+    margin-bottom: 12px;
+}
+
+.summary-box {
+    background: #f4faf9;
+    border-left: 4px solid #0f766e;
+    padding: 15px;
+    border-radius: 8px;
+    color: #526269;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* TWO COLUMNS */
+
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* VITALS */
+
+.vitals {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.vital {
+    border: 1px solid #e4eaea;
+    border-radius: 10px;
+    padding: 13px;
+}
+
+.vital-label {
+    color: #89959a;
+    font-size: 9px;
+    text-transform: uppercase;
+}
+
+.vital-value {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+/* NOTES */
+
+.note-box {
+    border: 1px solid #e4eaea;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 11px;
+    color: #526269;
+    line-height: 1.7;
+}
+
+/* FOLLOW UP */
+
+.follow-box {
+    background: #fff8e9;
+    border: 1px solid #f1dfb8;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.follow-badge {
+    display: inline-block;
+    background: #f5d995;
+    color: #6c510d;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: bold;
+}
+
+.follow-date {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 9px;
+}
+
+.follow-text {
+    color: #796b48;
+    font-size: 10px;
+    margin-top: 5px;
+}
+
+/* ATTACHMENTS */
+
+.attachments {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.attachment {
+    border: 1px solid #e4eaea;
+    border-radius: 10px;
+    padding: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.file-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #edf5f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-name {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.file-size {
+    color: #8a969d;
+    font-size: 9px;
+    margin-top: 3px;
+}
+
+/* FOOTER */
+
+.report-footer {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #e8eeee;
+    display: flex;
+    justify-content: space-between;
+    color: #8a969d;
+    font-size: 9px;
+}
+
+/* EDIT MESSAGE */
+
+.message {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #102b2a;
+    color: white;
+    padding: 12px 17px;
+    border-radius: 9px;
+    font-size: 11px;
+    display: none;
+}
+
+.message.show {
+    display: block;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 950px) {
+
+    .sidebar {
+        width: 70px;
+    }
+
+    .brand-name,
+    .brand-subtitle,
+    .nav-title,
+    .nav-button span,
+    .doctor {
+        display: none;
+    }
+
+    .main {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        padding: 20px;
+    }
+
+    .vitals {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media(max-width: 700px) {
+
+    .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 13px;
+    }
+
+    .actions {
+        width: 100%;
+    }
+
+    .actions .button {
+        flex: 1;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+    }
+
+    .attachments {
+        grid-template-columns: 1fr;
+    }
+
+    .report-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+}
+
+@media print {
+
+    body {
+        background: white;
+    }
+
+    .sidebar,
+    .topbar .actions {
+        display: none;
+    }
+
+    .main {
+        margin: 0;
+        width: 100%;
+        padding: 0;
+    }
+
+    .report {
+        border: none;
+        box-shadow: none;
+    }
+
+    .message {
+        display: none !important;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+
+        <div class="logo">
+            A
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                AYUSH Care
+            </div>
+
+            <div class="brand-subtitle">
+                Patient Case Management
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-title">
+        Practitioner
+    </div>
+
+
+    <button class="nav-button">
+        📊
+        <span>Dashboard</span>
+    </button>
+
+
+    <button class="nav-button">
+        🔎
+        <span>Search / Patients</span>
+    </button>
+
+
+    <button class="nav-button">
+        🕐
+        <span>Patient Timeline</span>
+    </button>
+
+
+    <button class="nav-button">
+        🔔
+        <span>Follow-ups</span>
+    </button>
+
+
+    <button class="nav-button active">
+        📄
+        <span>Summary / Export</span>
+    </button>
+
+
+    <div class="nav-title">
+        System
+    </div>
+
+
+    <button class="nav-button">
+        ⚙
+        <span>Settings</span>
+    </button>
+
+
+    <button class="nav-button">
+        ❓
+        <span>Help</span>
+    </button>
+
+
+    <div class="doctor">
+
+        Signed in as
+        <br>
+
+        <strong>
+            Dr. Sharma
+        </strong>
+
+        <br>
+
+        AYUSH Practitioner
+
+    </div>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+    <!-- HEADER -->
+
+    <div class="topbar">
+
+        <div>
+
+            <div class="kicker">
+                PATIENT REPORT · SIH26047
+            </div>
+
+            <h1>
+                Patient Summary
+            </h1>
+
+            <p class="subtitle">
+                Clinical summary and visit report.
+            </p>
+
+        </div>
+
+
+        <div class="actions">
+
+            <button
+            class="button"
+            onclick="editReport()">
+
+                ✏ Edit
+
+            </button>
+
+
+            <button
+            class="button button-primary"
+            onclick="printReport()">
+
+                🖨 Print / Export
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- REPORT -->
+
+    <section class="report">
+
+
+        <!-- PATIENT HEADER -->
+
+        <div class="report-header">
+
+
+            <div class="patient">
+
+
+                <div class="avatar">
+                    RK
+                </div>
+
+
+                <div>
+
+                    <div class="patient-name">
+                        Rahul Kumar
+                    </div>
+
+                    <div class="patient-id">
+                        Patient ID: AY-2026-00421
+                        · Male · 34 years
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <span class="status">
+                ACTIVE CASE
+            </span>
+
+
+        </div>
+
+
+
+        <!-- REPORT BODY -->
+
+        <div class="report-body">
+
+
+            <!-- SUMMARY -->
+
+            <div class="section">
+
+
+                <div class="section-title">
+                    Clinical Summary
+                </div>
+
+
+                <div class="summary-box">
+
+                    Patient presented with persistent fatigue,
+                    irregular sleep and reduced daytime energy.
+                    During the latest follow-up, the patient
+                    reported improvement in sleep quality and
+                    reduced fatigue.
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- TWO COLUMN -->
+
+            <div class="two-column">
+
+
+                <!-- COMPLAINT -->
+
+                <div class="section">
+
+
+                    <div class="section-title">
+                        Current Complaint
+                    </div>
+
+
+                    <div class="note-box">
+
+                        Persistent fatigue, irregular sleep
+                        and reduced daytime energy.
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- ASSESSMENT -->
+
+                <div class="section">
+
+
+                    <div class="section-title">
+                        Assessment
+                    </div>
+
+
+                    <div class="note-box">
+
+                        Symptoms currently improving.
+                        Continue monitoring progress and
+                        review during the next scheduled visit.
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- VITALS -->
+
+            <div class="section">
+
+
+                <div class="section-title">
+                    Latest Vitals
+                </div>
+
+
+                <div class="section-subtitle">
+                    Recorded during the latest consultation
+                </div>
+
+
+                <div class="vitals">
+
+
+                    <div class="vital">
+
+                        <div class="vital-label">
+                            Blood Pressure
+                        </div>
+
+                        <div class="vital-value">
+                            118/76
+                        </div>
+
+                    </div>
+
+
+                    <div class="vital">
+
+                        <div class="vital-label">
+                            Pulse
+                        </div>
+
+                        <div class="vital-value">
+                            72 bpm
+                        </div>
+
+                    </div>
+
+
+                    <div class="vital">
+
+                        <div class="vital-label">
+                            Temperature
+                        </div>
+
+                        <div class="vital-value">
+                            98.4°F
+                        </div>
+
+                    </div>
+
+
+                    <div class="vital">
+
+                        <div class="vital-label">
+                            Weight
+                        </div>
+
+                        <div class="vital-value">
+                            68 kg
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CLINICAL NOTES -->
+
+            <div class="section">
+
+
+                <div class="section-title">
+                    Clinical Notes
+                </div>
+
+
+                <div class="note-box">
+
+                    Latest consultation recorded improvement
+                    in sleep and daytime energy. Patient was
+                    advised to continue the current care plan
+                    and maintain the recommended routine.
+                    Further assessment will be performed at
+                    the next follow-up.
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FOLLOW UP -->
+
+            <div class="section">
+
+
+                <div class="section-title">
+                    Follow-up Plan
+                </div>
+
+
+                <div class="follow-box">
+
+
+                    <span class="follow-badge">
+                        SCHEDULED
+                    </span>
+
+
+                    <div class="follow-date">
+                        13 September 2026
+                    </div>
+
+
+                    <div class="follow-text">
+
+                        Review progress and reassess
+                        reported symptoms during the
+                        next consultation.
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ATTACHMENTS -->
+
+            <div class="section">
+
+
+                <div class="section-title">
+                    Attachments
+                </div>
+
+
+                <div class="attachments">
+
+
+                    <div class="attachment">
+
+                        <div class="file-icon">
+                            📄
+                        </div>
+
+                        <div>
+
+                            <div class="file-name">
+                                Consultation Notes.pdf
+                            </div>
+
+                            <div class="file-size">
+                                1.2 MB
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="attachment">
+
+                        <div class="file-icon">
+                            🧪
+                        </div>
+
+                        <div>
+
+                            <div class="file-name">
+                                Lab Report.pdf
+                            </div>
+
+                            <div class="file-size">
+                                840 KB
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="attachment">
+
+                        <div class="file-icon">
+                            🖼️
+                        </div>
+
+                        <div>
+
+                            <div class="file-name">
+                                Prescription.jpg
+                            </div>
+
+                            <div class="file-size">
+                                620 KB
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div class="report-footer">
+
+                <span>
+                    Generated by AYUSH Care
+                </span>
+
+                <span>
+                    Dr. Sharma · AYUSH Practitioner
+                </span>
+
+                <span>
+                    30 Aug 2026
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!-- MESSAGE -->
+
+<div
+id="message"
+class="message">
+
+    Report is ready for editing.
+
+</div>
+
+
+<script>
+
+function printReport() {
+
+    window.print();
+
+}
+
+
+function editReport() {
+
+    const message =
+    document.getElementById("message");
+
+    message.classList.add("show");
+
+    setTimeout(function() {
+
+        message.classList.remove("show");
+
+    }, 2500);
+
+}
+
+</script>
+
+
+</body>
+
+  </html>
