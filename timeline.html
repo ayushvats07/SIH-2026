@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>AYUSH Care | Patient Timeline</title>
+
+
+<style>
+
+/* =========================================
+   BASIC RESET
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+    background: #f4f7f7;
+
+    color: #17212b;
+
+}
+
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 240px;
+
+    background: #102b2a;
+
+    color: white;
+
+    padding: 22px 15px;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    padding:
+    5px 8px 30px;
+
+}
+
+
+.logo {
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 12px;
+
+    background: #d7f1ed;
+
+    color: #0f766e;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+}
+
+
+.brand-name {
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+}
+
+
+.brand-subtitle {
+
+    font-size: 10px;
+
+    color: #8da7a4;
+
+    margin-top: 4px;
+
+}
+
+
+.nav-title {
+
+    color: #76918d;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
+    margin:
+    15px 10px 8px;
+
+}
+
+
+.nav-button {
+
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: #b8ccca;
+
+    text-align: left;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    margin-bottom: 3px;
+
+    font-size: 13px;
+
+}
+
+
+.nav-button:hover {
+
+    background: #1b4542;
+
+    color: white;
+
+}
+
+
+.nav-button.active {
+
+    background: #1b4542;
+
+    color: white;
+
+}
+
+
+.doctor {
+
+    position: absolute;
+
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+
+    padding-top: 15px;
+
+    border-top:
+    1px solid #31504e;
+
+    color: #8fa9a6;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+
+.doctor strong {
+
+    color: white;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main {
+
+    margin-left: 240px;
+
+    width:
+    calc(100% - 240px);
+
+    padding: 30px;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.topbar {
+
+    display: flex;
+
+    justify-content:
+    space-between;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+
+}
+
+
+.kicker {
+
+    color: #0f766e;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+h1 {
+
+    font-size: 27px;
+
+    margin-top: 6px;
+
+}
+
+
+.subtitle {
+
+    color: #71808c;
+
+    font-size: 12px;
+
+    margin-top: 5px;
+
+}
+
+
+.button {
+
+    border:
+    1px solid #dfe6e6;
+
+    background: white;
+
+    padding:
+    10px 14px;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    color: #34434a;
+
+}
+
+
+.button-primary {
+
+    background: #0f766e;
+
+    border-color: #0f766e;
+
+    color: white;
+
+}
+
+
+/* =========================================
+   PATIENT SNAPSHOT
+========================================= */
+
+.snapshot {
+
+    background: white;
+
+    border:
+    1px solid #e2e8e8;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    display: grid;
+
+    grid-template-columns:
+    1.5fr 1fr 1fr 1fr;
+
+    gap: 15px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,0.035);
+
+}
+
+
+.patient-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.patient-avatar {
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 15px;
+
+    background: #dff2ef;
+
+    color: #0f766e;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-weight: bold;
+
+    font-size: 17px;
+
+}
+
+
+.patient-name {
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+}
+
+
+.patient-id {
+
+    color: #849197;
+
+    font-size: 10px;
+
+    margin-top: 4px;
+
+}
+
+
+.snapshot-item {
+
+    border-left:
+    1px solid #edf0f0;
+
+    padding-left: 16px;
+
+}
+
+
+.snapshot-label {
+
+    color: #89959a;
+
+    font-size: 9px;
+
+    text-transform: uppercase;
+
+    font-weight: bold;
+
+}
+
+
+.snapshot-value {
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-top: 8px;
+
+}
+
+
+/* =========================================
+   CONTENT LAYOUT
+========================================= */
+
+.content {
+
+    display: grid;
+
+    grid-template-columns:
+    1.55fr 0.8fr;
+
+    gap: 16px;
+
+    margin-top: 16px;
+
+}
+
+
+.card {
+
+    background: white;
+
+    border:
+    1px solid #e2e8e8;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    box-shadow:
+    0 5px 20px
+    rgba(0,0,0,0.035);
+
+}
+
+
+.card-header {
+
+    display: flex;
+
+    justify-content:
+    space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+.card-title {
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+}
+
+
+.filter {
+
+    border:
+    1px solid #dfe6e6;
+
+    background: white;
+
+    border-radius: 8px;
+
+    padding: 8px;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+   TIMELINE
+========================================= */
+
+.timeline {
+
+    position: relative;
+
+    padding-left: 35px;
+
+}
+
+
+/* vertical line */
+
+.timeline::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 9px;
+
+    top: 8px;
+
+    bottom: 10px;
+
+    width: 2px;
+
+    background: #d9e7e5;
+
+}
+
+
+/* timeline event */
+
+.event {
+
+    position: relative;
+
+    margin-bottom: 23px;
+
+    cursor: pointer;
+
+}
+
+
+.event:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+/* circle */
+
+.event-dot {
+
+    position: absolute;
+
+    left: -31px;
+
+    top: 4px;
+
+    width: 17px;
+
+    height: 17px;
+
+    border-radius: 50%;
+
+    background: #0f766e;
+
+    border:
+    4px solid #dff2ef;
+
+}
+
+
+.event:hover .event-dot {
+
+    transform: scale(1.2);
+
+}
+
+
+/* event date */
+
+.event-date {
+
+    color: #0f766e;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+
+}
+
+
+/* event box */
+
+.event-box {
+
+    border:
+    1px solid #e4eaea;
+
+    border-radius: 11px;
+
+    padding: 14px;
+
+    transition:
+    0.2s ease;
+
+}
+
+
+.event-box:hover {
+
+    border-color: #9bc9c3;
+
+    box-shadow:
+    0 5px 15px
+    rgba(0,0,0,0.04);
+
+}
+
+
+.event-title {
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+}
+
+
+.event-description {
+
+    color: #68777d;
+
+    font-size: 10px;
+
+    margin-top: 7px;
+
+    line-height: 1.5;
+
+}
+
+
+.event-meta {
+
+    display: flex;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+
+    margin-top: 10px;
+
+}
+
+
+.tag {
+
+    background: #eef5f4;
+
+    color: #37706a;
+
+    border-radius: 20px;
+
+    padding:
+    5px 8px;
+
+    font-size: 9px;
+
+}
+
+
+.open-visit {
+
+    margin-top: 11px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #0f766e;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================
+   RIGHT PANEL
+========================================= */
+
+.side-section {
+
+    margin-bottom: 16px;
+
+}
+
+
+.side-section:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.side-title {
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* complaint */
+
+.complaint {
+
+    background: #f4faf9;
+
+    border-radius: 10px;
+
+    padding: 13px;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+    color: #4f6065;
+
+}
+
+
+/* =========================================
+   VITALS
+========================================= */
+
+.vitals {
+
+    display: grid;
+
+    grid-template-columns:
+    1fr 1fr;
+
+    gap: 9px;
+
+}
+
+
+.vital {
+
+    border:
+    1px solid #e4eaea;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+}
+
+
+.vital-label {
+
+    font-size: 9px;
+
+    color: #89959a;
+
+    text-transform: uppercase;
+
+}
+
+
+.vital-value {
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    margin-top: 6px;
+
+}
+
+
+/* =========================================
+   ATTACHMENTS
+========================================= */
+
+.attachment {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 10px 0;
+
+    border-bottom:
+    1px solid #edf0f0;
+
+}
+
+
+.attachment:last-child {
+
+    border-bottom: none;
+
+}
+
+
+.file-icon {
+
+    width: 31px;
+    height: 31px;
+
+    border-radius: 8px;
+
+    background: #edf5f4;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.file-name {
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+
+.file-size {
+
+    color: #8a969d;
+
+    font-size: 9px;
+
+    margin-top: 3px;
+
+}
+
+
+/* =========================================
+   FOLLOW UP
+========================================= */
+
+.follow-box {
+
+    background: #fff8e9;
+
+    border:
+    1px solid #f1dfb8;
+
+    border-radius: 10px;
+
+    padding: 13px;
+
+}
+
+
+.follow-status {
+
+    display: inline-block;
+
+    background: #f5d995;
+
+    color: #6c510d;
+
+    border-radius: 20px;
+
+    padding: 5px 9px;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+}
+
+
+.follow-date {
+
+    margin-top: 9px;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+}
+
+
+.follow-text {
+
+    margin-top: 5px;
+
+    color: #796b48;
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================
+   DETAIL MODAL
+========================================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+    rgba(10,30,30,0.45);
+
+    display: none;
+
+    align-items: stretch;
+
+    justify-content: flex-end;
+
+    z-index: 100;
+
+}
+
+
+.modal.active {
+
+    display: flex;
+
+}
+
+
+.detail-panel {
+
+    width: 390px;
+
+    max-width: 90%;
+
+    background: white;
+
+    height: 100%;
+
+    padding: 25px;
+
+    overflow-y: auto;
+
+    box-shadow:
+    -8px 0 25px
+    rgba(0,0,0,0.15);
+
+}
+
+
+.detail-header {
+
+    display: flex;
+
+    justify-content:
+    space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+
+}
+
+
+.close {
+
+    border: none;
+
+    background: #f1f4f4;
+
+    width: 32px;
+    height: 32px;
+
+    border-radius: 8px;
+
+    font-size: 18px;
+
+}
+
+
+.detail-label {
+
+    color: #0f766e;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+
+.detail-title {
+
+    font-size: 20px;
+
+    margin-top: 7px;
+
+}
+
+
+.detail-block {
+
+    margin-top: 22px;
+
+}
+
+
+.detail-block h3 {
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.detail-block p {
+
+    color: #617076;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+}
+
+
+.detail-button {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #0f766e;
+
+    color: white;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width: 950px) {
+
+    .sidebar {
+
+        width: 70px;
+
+    }
+
+
+    .brand-name,
+    .brand-subtitle,
+    .nav-title,
+    .nav-button span,
+    .doctor {
+
+        display: none;
+
+    }
+
+
+    .main {
+
+        margin-left: 70px;
+
+        width:
+        calc(100% - 70px);
+
+        padding: 20px;
+
+    }
+
+
+    .snapshot {
+
+        grid-template-columns:
+        1fr 1fr;
+
+    }
+
+
+    .content {
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    .topbar {
+
+        flex-direction:
+        column;
+
+        align-items:
+        flex-start;
+
+        gap: 12px;
+
+    }
+
+
+    .snapshot {
+
+        grid-template-columns:
+        1fr;
+
+    }
+
+
+    .snapshot-item {
+
+        border-left: none;
+
+        border-top:
+        1px solid #edf0f0;
+
+        padding:
+        12px 0 0;
+
+    }
+
+
+    .detail-panel {
+
+        width: 100%;
+
+        max-width: 100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar">
+
+
+    <div class="brand">
+
+        <div class="logo">
+            A
+        </div>
+
+
+        <div>
+
+            <div class="brand-name">
+                AYUSH Care
+            </div>
+
+            <div class="brand-subtitle">
+                Patient Case Management
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-title">
+        Practitioner
+    </div>
+
+
+    <button class="nav-button">
+        📊
+        <span>Dashboard</span>
+    </button>
+
+
+    <button class="nav-button">
+        🔎
+        <span>Search / Patients</span>
+    </button>
+
+
+    <button class="nav-button active">
+        🕐
+        <span>Patient Timeline</span>
+    </button>
+
+
+    <button class="nav-button">
+        🔔
+        <span>Follow-ups</span>
+    </button>
+
+
+    <button class="nav-button">
+        📄
+        <span>Summary / Export</span>
+    </button>
+
+
+    <div class="nav-title">
+        System
+    </div>
+
+
+    <button class="nav-button">
+        ⚙
+        <span>Settings</span>
+    </button>
+
+
+    <button class="nav-button">
+        ❓
+        <span>Help</span>
+    </button>
+
+
+    <div class="doctor">
+
+        Signed in as
+
+        <br>
+
+        <strong>
+            Dr. Sharma
+        </strong>
+
+        <br>
+
+        AYUSH Practitioner
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- ========================================
+     MAIN
+========================================= -->
+
+<main class="main">
+
+
+    <!-- HEADER -->
+
+    <div class="topbar">
+
+
+        <div>
+
+            <div class="kicker">
+                PATIENT RECORD · SIH26047
+            </div>
+
+
+            <h1>
+                Patient Timeline
+            </h1>
+
+
+            <p class="subtitle">
+                Longitudinal view of visits,
+                complaints and follow-ups.
+            </p>
+
+        </div>
+
+
+        <button
+        class="button button-primary"
+        onclick="openLatestVisit()">
+
+            Open Latest Visit
+
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ====================================
+         PATIENT SNAPSHOT
+    ===================================== -->
+
+    <section class="snapshot">
+
+
+        <div class="patient-info">
+
+
+            <div class="patient-avatar">
+                RK
+            </div>
+
+
+            <div>
+
+                <div class="patient-name">
+                    Rahul Kumar
+                </div>
+
+                <div class="patient-id">
+                    Patient ID: AY-2026-00421
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="snapshot-item">
+
+            <div class="snapshot-label">
+                Age / Gender
+            </div>
+
+            <div class="snapshot-value">
+                34 · Male
+            </div>
+
+        </div>
+
+
+        <div class="snapshot-item">
+
+            <div class="snapshot-label">
+                Last Visit
+            </div>
+
+            <div class="snapshot-value">
+                30 Aug 2026
+            </div>
+
+        </div>
+
+
+        <div class="snapshot-item">
+
+            <div class="snapshot-label">
+                Case Status
+            </div>
+
+            <div class="snapshot-value">
+                🟢 Active
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ====================================
+         MAIN CONTENT
+    ===================================== -->
+
+    <div class="content">
+
+
+        <!-- =================================
+             TIMELINE
+        ================================== -->
+
+        <section class="card">
+
+
+            <div class="card-header">
+
+                <div>
+
+                    <div class="card-title">
+                        Visit History
+                    </div>
+
+                    <div class="subtitle">
+                        Chronological patient activity
+                    </div>
+
+                </div>
+
+
+                <select class="filter">
+
+                    <option>
+                        All visits
+                    </option>
+
+                    <option>
+                        2026
+                    </option>
+
+                    <option>
+                        2025
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <div class="timeline">
+
+
+                <!-- EVENT 1 -->
+
+                <div
+                class="event"
+                onclick="showVisit(1)">
+
+
+                    <div class="event-dot"></div>
+
+
+                    <div class="event-date">
+                        30 AUG 2026 · 10:30 AM
+                    </div>
+
+
+                    <div class="event-box">
+
+
+                        <div class="event-title">
+                            Follow-up consultation
+                        </div>
+
+
+                        <div class="event-description">
+
+                            Patient reports improvement
+                            in sleep and reduced fatigue
+                            since the previous visit.
+
+                        </div>
+
+
+                        <div class="event-meta">
+
+                            <span class="tag">
+                                Follow-up
+                            </span>
+
+                            <span class="tag">
+                                Vitals recorded
+                            </span>
+
+                            <span class="tag">
+                                2 attachments
+                            </span>
+
+                        </div>
+
+
+                        <button
+                        class="open-visit"
+                        onclick="event.stopPropagation(); showVisit(1)">
+
+                            Open Visit →
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- EVENT 2 -->
+
+                <div
+                class="event"
+                onclick="showVisit(2)">
+
+
+                    <div class="event-dot"></div>
+
+
+                    <div class="event-date">
+                        16 AUG 2026 · 11:15 AM
+                    </div>
+
+
+                    <div class="event-box">
+
+
+                        <div class="event-title">
+                            Initial consultation
+                        </div>
+
+
+                        <div class="event-description">
+
+                            Main complaint recorded:
+                            persistent fatigue and
+                            irregular sleep pattern.
+
+                        </div>
+
+
+                        <div class="event-meta">
+
+                            <span class="tag">
+                                New case
+                            </span>
+
+                            <span class="tag">
+                                Assessment
+                            </span>
+
+                            <span class="tag">
+                                1 attachment
+                            </span>
+
+                        </div>
+
+
+                        <button
+                        class="open-visit"
+                        onclick="event.stopPropagation(); showVisit(2)">
+
+                            Open Visit →
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- EVENT 3 -->
+
+                <div
+                class="event"
+                onclick="showVisit(3)">
+
+
+                    <div class="event-dot"></div>
+
+
+                    <div class="event-date">
+                        02 JUL 2026 · 04:00 PM
+                    </div>
+
+
+                    <div class="event-box">
+
+
+                        <div class="event-title">
+                            Case created
+                        </div>
+
+
+                        <div class="event-description">
+
+                            Patient profile created
+                            and initial demographic
+                            information recorded.
+
+                        </div>
+
+
+                        <div class="event-meta">
+
+                            <span class="tag">
+                                Registration
+                            </span>
+
+                        </div>
+
+
+                        <button
+                        class="open-visit"
+                        onclick="event.stopPropagation(); showVisit(3)">
+
+                            Open Visit →
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================
+             RIGHT INFORMATION
+        ================================== -->
+
+        <aside>
+
+
+            <!-- COMPLAINT -->
+
+            <div class="card side-s
