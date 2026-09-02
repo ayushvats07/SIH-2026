@@ -1011,3 +1011,135 @@ textarea {
 
   background: #eef
 }
+
+/* Integrated pages: Timeline and Report */
+.integratedPage {
+  min-height: calc(100vh - 72px);
+  padding: 34px 42px 42px;
+  background: var(--background);
+}
+.integratedPageHeader {
+  max-width: 1180px; margin: 0 auto 22px; display: flex;
+  align-items: flex-end; justify-content: space-between; gap: 24px;
+}
+.integratedPageHeader h1 { margin-top: 10px; font-size: 30px; line-height: 1.15; color: var(--text); }
+.integratedPageHeader p { margin-top: 8px; color: var(--muted); font-size: 14px; }
+.integratedActions { display: flex; gap: 10px; flex-shrink: 0; }
+.secondary { border: 1px solid var(--border); background: var(--surface); color: var(--text); border-radius: 10px; padding: 11px 16px; font-weight: 700; }
+.secondary:hover { background: var(--primary-light); }
+.integratedFrameCard { width: 100%; max-width: 1180px; height: calc(100vh - 210px); min-height: 650px; margin: 0 auto; overflow: hidden; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); }
+.integratedFrame { width: 100%; height: 100%; border: 0; display: block; }
+@media (max-width: 800px) {
+  .integratedPage { padding: 24px 16px 30px; }
+  .integratedPageHeader { align-items: flex-start; flex-direction: column; }
+  .integratedActions { width: 100%; }
+  .integratedActions button { flex: 1; }
+  .integratedFrameCard { min-height: 620px; height: calc(100vh - 270px); }
+}
+
+/* =========================
+   WORKFLOW SETTINGS
+========================= */
+.settingsButton {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 8px;
+}
+.settingsButton:hover { background: #f0f4f4; color: var(--primary); }
+.settingsOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(5, 15, 25, .55);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: flex-end;
+}
+.settingsPanel {
+  width: min(520px, 94vw);
+  height: 100%;
+  overflow-y: auto;
+  background: #f7fbfb;
+  padding: 28px;
+  box-shadow: -15px 0 45px rgba(0,0,0,.18);
+  color: #102331;
+}
+.settingsPanelHeader { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:22px; }
+.settingsPanelHeader h2 { margin:10px 0 5px; font-size:25px; }
+.settingsPanelHeader p { margin:0; color:#667780; font-size:14px; }
+.iconButton { border:0; background:#e9f0f0; color:#30434b; border-radius:10px; width:38px; height:38px; cursor:pointer; font-size:16px; }
+.settingsSection { background:#fff; border:1px solid #dfe8e8; border-radius:16px; padding:18px; margin-bottom:16px; }
+.settingsSection h3 { margin:0 0 14px; font-size:16px; }
+.settingsOption { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:14px 0; border-top:1px solid #edf1f1; }
+.settingsSection .settingsOption:first-of-type { border-top:0; padding-top:4px; }
+.settingsOption b { display:block; font-size:14px; }
+.settingsOption small { display:block; margin-top:4px; color:#718087; font-size:12px; }
+.segmented { display:flex; gap:4px; background:#edf3f3; padding:4px; border-radius:9px; flex-shrink:0; }
+.segmented button { border:0; background:transparent; border-radius:7px; padding:7px 9px; cursor:pointer; color:#52636a; font-size:12px; }
+.segmented button.selected { background:#16a99a; color:white; box-shadow:0 2px 5px rgba(0,0,0,.1); }
+.settingsOption select { border:1px solid #d5e0e0; border-radius:9px; padding:9px 12px; background:#fff; color:#20333b; }
+.toggle { width:48px; height:27px; border:0; border-radius:20px; background:#cbd6d6; padding:3px; cursor:pointer; flex-shrink:0; }
+.toggle span { display:block; width:21px; height:21px; border-radius:50%; background:white; transition:transform .2s; box-shadow:0 1px 3px rgba(0,0,0,.2); }
+.toggle.on { background:#16a99a; }
+.toggle.on span { transform:translateX(21px); }
+.settingsFooter { display:flex; justify-content:flex-end; gap:10px; padding:4px 0 20px; }
+
+html[data-font-size="small"] .app { font-size: 13px; }
+html[data-font-size="large"] .app { font-size: 17px; }
+html.high-contrast .app { filter: contrast(1.15); }
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior:auto !important; }
+html.dark .settingsPanel { background:#0d1c2b; color:#eaf5f5; }
+html.dark .settingsPanelHeader p, html.dark .settingsOption small { color:#a8b9bf; }
+html.dark .settingsSection { background:#142536; border-color:#28404d; }
+html.dark .settingsOption { border-color:#263d49; }
+html.dark .iconButton, html.dark .segmented { background:#203646; color:#e5f2f2; }
+html.dark .segmented button { color:#b9c9ce; }
+html.dark .settingsOption select { background:#1b3040; color:#eaf5f5; border-color:#38505d; }
+@media (max-width: 600px) {
+  .settingsPanel { padding:20px; }
+  .settingsOption { align-items:flex-start; flex-direction:column; }
+  .segmented { width:100%; }
+  .segmented button { flex:1; }
+}
+
+@media (max-width: 700px) {  }
+
+
+/* Global project appearance controls */
+html[data-font-size="small"] .app { zoom: 0.90; }
+html[data-font-size="medium"] .app { zoom: 1; }
+html[data-font-size="large"] .app { zoom: 1.10; }
+
+/* The Case Workflow is a separate entry from the dashboard, so its theme is
+   applied here too and persists through the shared localStorage setting. */
+html.dark .app { background: #0e1620; color: #e6f0f2; }
+html.dark .header { background: #102331; border-color: #29404a; color: #eaf5f5; }
+html.dark .sidebar { background: #0b1d24; border-color: #29404a; }
+html.dark .content { background: #0e1620; }
+html.dark .card,
+html.dark .hero,
+html.dark .feature,
+html.dark .profileCard,
+html.dark .wizardCard,
+html.dark .integratedFrameCard,
+html.dark .settingsPanel { background: #142734; border-color: #29434e; color: #e6f0f2; }
+html.dark input,
+html.dark textarea,
+html.dark select { background: #10222e; color: #eaf5f5; border-color: #38515d; }
+html.dark .secondary,
+html.dark .settingsButton { background: #1a3441; color: #eaf5f5; border-color: #38515d; }
+html.dark .pageHeader p,
+html.dark .integratedPageHeader p,
+html.dark .settingsPanelHeader p,
+html.dark .settingsOption small { color: #a8bcc3; }
+html.dark .navigation { border-color: #29434e; }
+html.dark .settingsSection { background: #142734; border-color: #29434e; }
+html.dark .settingsOption { border-color: #29434e; }
+html.dark .segmented { background: #203945; }
+html.dark .settingsOption select { background: #10222e; color: #eaf5f5; border-color: #38515d; }

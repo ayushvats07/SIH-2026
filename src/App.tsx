@@ -6,11 +6,12 @@ import AppointmentMock from './components/AppointmentMock'
 import AttachmentCenter from './components/AttachmentCenter'
 import SettingsAccessibility from './components/SettingsAccessibility'
 import HelpGuidedTour from './components/HelpGuidedTour'
+import Dashboard from './components/Dashboard'
 
-type Page = 'profile' | 'appointments' | 'attachments' | 'settings' | 'help'
+type Page = 'dashboard' | 'profile' | 'appointments' | 'attachments' | 'settings' | 'help'
 
 function App() {
-  const [page, setPage] = useState<Page>('appointments')
+  const [page, setPage] = useState<Page>('dashboard')
 
   return (
     <SettingsProvider>
@@ -22,9 +23,19 @@ function App() {
               <div className="h-8 w-8 rounded-lg bg-teal-500 flex items-center justify-center">
                 <Stethoscope className="h-4 w-4" />
               </div>
-              <span className="text-base font-semibold tracking-tight hidden sm:inline">AYUSH Case-Taking</span>
+              <span className="text-base font-semibold tracking-tight hidden sm:inline">NOVA Case-Taking</span>
             </div>
             <div className="flex items-center gap-1 rounded-lg bg-navy-800 dark:bg-navy-800 p-1 ml-auto" role="group" aria-label="Page navigation">
+              <button
+                type="button"
+                onClick={() => setPage('dashboard')}
+                aria-pressed={page === 'dashboard'}
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-all ${
+                  page === 'dashboard' ? 'bg-teal-500 text-white shadow' : 'text-navy-200 hover:text-white'
+                }`}
+              >
+                <span className="hidden sm:inline">Dashboard</span>
+              </button>
               <button
                 type="button"
                 onClick={() => setPage('profile')}
@@ -62,12 +73,13 @@ function App() {
                 type="button"
                 onClick={() => setPage('settings')}
                 aria-pressed={page === 'settings'}
+                aria-label="Settings"
+                title="Settings"
                 className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-all ${
                   page === 'settings' ? 'bg-teal-500 text-white shadow' : 'text-navy-200 hover:text-white'
                 }`}
               >
                 <Settings2 className="h-4 w-4" />
-                <span className="hidden sm:inline">Settings</span>
               </button>
               <button
                 type="button"
@@ -84,6 +96,7 @@ function App() {
           </div>
         </nav>
 
+        {page === 'dashboard' && <Dashboard onOpenCaseTaking={() => setPage('appointments')} />}
         {page === 'profile' && <PractitionerProfilePage />}
         {page === 'appointments' && <AppointmentMock />}
         {page === 'attachments' && <AttachmentCenter />}

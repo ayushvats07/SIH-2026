@@ -129,14 +129,14 @@ export const faqs: FAQ[] = [
     id: 'faq-10',
     category: 'Getting Started',
     question: 'Is this system a substitute for medical diagnosis?',
-    answer: 'No. This tool is designed to assist AYUSH practitioners with case-taking and record management. It does not replace professional medical diagnosis, clinical judgment, or in-person consultation. Always refer to standard medical guidelines.',
+    answer: 'No. This tool is designed to assist NOVA practitioners with case-taking and record management. It does not replace professional medical diagnosis, clinical judgment, or in-person consultation. Always refer to standard medical guidelines.',
   },
 ]
 
 export const tourSteps: TourStep[] = [
   {
     id: 'tour-1',
-    title: 'Welcome to AYUSH Case-Taking',
+    title: 'Welcome to NOVA Case-Taking',
     body: 'This guided tour will walk you through the key features of the system. You can skip at any time and resume later from the Help page.',
     target: 'nav',
   },
@@ -183,4 +183,4 @@ export const keyboardShortcuts: KeyboardShortcut[] = [
 ]
 
 export const DISCLAIMER_TEXT =
-  'This AYUSH case-taking system is a digital assistant tool for qualified practitioners. It does not replace professional medical diagnosis, clinical examination, or the judgment of a licensed healthcare provider. All assessments and recommendations generated or recorded through this system should be validated against standard medical guidelines and the practitioner\'s own clinical expertise. In emergencies, contact your nearest emergency services immediately.'
+  'This NOVA case-taking system is a digital assistant tool for qualified practitioners. It does not replace professional medical diagnosis, clinical examination, or the judgment of a licensed healthcare provider. All assessments and recommendations generated or recorded through this system should be validated against standard medical guidelines and the practitioner\'s own clinical expertise. In emergencies, contact your nearest emergency services immediately.'

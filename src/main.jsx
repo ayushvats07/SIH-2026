@@ -1,6 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
+
+const SETTINGS_KEY = "ayush-settings";
+
+const DEFAULT_WORKFLOW_SETTINGS = {
+  theme: "light",
+  fontSize: "medium",
+  highContrast: false,
+  reducedMotion: false,
+  language: "English",
+};
 
 const pages = [
   "Welcome",
@@ -12,15 +22,53 @@ const pages = [
   "Chief Complaint",
   "History",
   "Lifestyle",
-  "AYUSH Assessment",
+  "NOVA Assessment",
   "Vitals & Examination",
+  "Patient Timeline",
+  "Patient Report",
 ];
 
 function App() {
   const [page, setPage] = useState(1);
+  const [showSettings, setShowSettings] = useState(false);
+  const [settings, setSettings] = useState(() => {
+    try {
+      const saved = localStorage.getItem(SETTINGS_KEY);
+      return saved ? { ...DEFAULT_WORKFLOW_SETTINGS, ...JSON.parse(saved) } : DEFAULT_WORKFLOW_SETTINGS;
+    } catch {
+      return DEFAULT_WORKFLOW_SETTINGS;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    document.documentElement.classList.toggle("dark", settings.theme === "dark");
+    document.documentElement.classList.toggle("high-contrast", settings.highContrast);
+    document.documentElement.classList.toggle("reduce-motion", settings.reducedMotion);
+    document.documentElement.dataset.fontSize = settings.fontSize;
+  }, [settings]);
+
+  useEffect(() => {
+    const onStorage = (event) => {
+      if (event.key !== SETTINGS_KEY || !event.newValue) return;
+      try {
+        setSettings({ ...DEFAULT_WORKFLOW_SETTINGS, ...JSON.parse(event.newValue) });
+      } catch {
+        // Ignore malformed settings.
+      }
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
+
+  const updateSetting = (key, value) => setSettings((current) => ({ ...current, [key]: value }));
+
+  const resetWorkflowSettings = () => {
+    setSettings(DEFAULT_WORKFLOW_SETTINGS);
+  };
 
   const next = () => {
-    setPage((current) => Math.min(current + 1, 11));
+    setPage((current) => Math.min(current + 1, pages.length));
   };
 
   const back = () => {
@@ -49,12 +97,22 @@ function App() {
         <div className="user">
 
           <div className="avatar">
-            SK
+          NV
           </div>
 
           <span>
-            Shivam Kaushik
+            Nova 
           </span>
+
+          <button
+            type="button"
+            className="settingsButton"
+            onClick={() => setShowSettings(true)}
+            aria-label="Open settings"
+            title="Settings"
+          >
+            ⚙
+          </button>
 
         </div>
 
@@ -164,17 +222,116 @@ function App() {
           )}
 
           {page === 11 && (
-            <Page11 back={back} />
+            <Page11 next={next} back={back} />
+          )}
+
+          {page === 12 && (
+            <IntegratedPage
+              title="Patient Timeline"
+              subtitle="Review the complete patient journey and clinical events."
+              src="/pages/timeline.html"
+              back={back}
+              next={next}
+              nextLabel="View Patient Report →"
+            />
+          )}
+
+          {page === 13 && (
+            <IntegratedPage
+              title="Patient Report"
+              subtitle="Review the patient summary and clinical report."
+              src="/pages/report.html"
+              back={back}
+            />
           )}
 
         </main>
 
       </div>
 
+      {showSettings && (
+        <SettingsPanel
+          settings={settings}
+          updateSetting={updateSetting}
+          resetSettings={resetWorkflowSettings}
+          onClose={() => setShowSettings(false)}
+        />
+      )}
+
     </div>
   );
 }
 
+
+
+function SettingsPanel({ settings, updateSetting, resetSettings, onClose }) {
+  return (
+    <div className="settingsOverlay" role="dialog" aria-modal="true" aria-label="Settings">
+      <div className="settingsPanel">
+        <div className="settingsPanelHeader">
+          <div>
+            <span className="badge">NOVA · Preferences</span>
+            <h2>Settings & Accessibility</h2>
+            <p>Customize the case-taking workspace to your preference.</p>
+          </div>
+          <button className="iconButton" onClick={onClose} aria-label="Close settings">✕</button>
+        </div>
+
+        <div className="settingsSection">
+          <h3>Appearance</h3>
+          <div className="settingsOption">
+            <div><b>Theme</b><small>Switch between light and dark mode</small></div>
+            <div className="segmented">
+              <button className={settings.theme === "light" ? "selected" : ""} onClick={() => updateSetting("theme", "light")}>☀ Light</button>
+              <button className={settings.theme === "dark" ? "selected" : ""} onClick={() => updateSetting("theme", "dark")}>☾ Dark</button>
+            </div>
+          </div>
+
+          <div className="settingsOption">
+            <div><b>Font Size</b><small>Adjust text size for readability</small></div>
+            <div className="segmented">
+              {[["small", "A"], ["medium", "A"], ["large", "A"]].map(([value, label]) => (
+                <button key={value} className={settings.fontSize === value ? "selected" : ""} onClick={() => updateSetting("fontSize", value)}>{label} {value}</button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="settingsSection">
+          <h3>Accessibility</h3>
+          <SettingToggle label="High Contrast" description="Increase visual contrast for better readability" checked={settings.highContrast} onChange={(value) => updateSetting("highContrast", value)} />
+          <SettingToggle label="Reduced Motion" description="Disable decorative animations and transitions" checked={settings.reducedMotion} onChange={(value) => updateSetting("reducedMotion", value)} />
+        </div>
+
+        <div className="settingsSection">
+          <h3>Language</h3>
+          <div className="settingsOption">
+            <div><b>Interface Language</b><small>Choose your preferred language</small></div>
+            <select value={settings.language} onChange={(event) => updateSetting("language", event.target.value)}>
+              {['English','Hindi','Kannada','Tamil','Telugu','Bengali','Marathi','Gujarati'].map((language) => <option key={language}>{language}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div className="settingsFooter">
+          <button className="secondary" onClick={resetSettings}>↺ Reset to defaults</button>
+          <button className="primary" onClick={onClose}>Done</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SettingToggle({ label, description, checked, onChange }) {
+  return (
+    <div className="settingsOption">
+      <div><b>{label}</b><small>{description}</small></div>
+      <button type="button" className={`toggle ${checked ? "on" : ""}`} onClick={() => onChange(!checked)} aria-pressed={checked}>
+        <span />
+      </button>
+    </div>
+  );
+}
 
 /* =========================
    PAGE 1
@@ -637,7 +794,7 @@ function Page6({ next, back }) {
             "Chief Complaint",
             "History",
             "Lifestyle",
-            "AYUSH Assessment",
+            "NOVA Assessment",
             "Vitals / Examination"
           ].map((item, index) => (
 
@@ -671,7 +828,7 @@ function Page6({ next, back }) {
           <p>
             Start with what brought the patient
             in today, then add relevant history,
-            lifestyle, AYUSH observations and
+            lifestyle, NOVA observations and
             examination findings.
           </p>
 
@@ -933,7 +1090,7 @@ function Page10({ next, back }) {
 
   return (
     <Page
-      title="AYUSH Assessment"
+      title="NOVA Assessment"
       subtitle="Record practitioner observations and questionnaire responses."
     >
 
@@ -1027,7 +1184,7 @@ function Page10({ next, back }) {
    PAGE 11
 ========================= */
 
-function Page11({ back }) {
+function Page11({ next, back }) {
 
   return (
     <Page
@@ -1109,10 +1266,8 @@ function Page11({ back }) {
 
       <Navigation
         back={back}
-        next={() =>
-          alert("Case completed!")
-        }
-        nextText="Finish Case"
+        next={next}
+        nextText="View Patient Timeline →"
       />
 
     </Page>
@@ -1401,6 +1556,28 @@ function Choice({
 
     </div>
   );
+}
+
+
+function IntegratedPage({ title, subtitle, src, back, next, nextLabel }) {
+  return (
+    <div className="integratedPage">
+      <div className="integratedPageHeader">
+        <div>
+          <span className="badge">AYUSH Care · Case Workflow</span>
+          <h1>{title}</h1>
+          <p>{subtitle}</p>
+        </div>
+        <div className="integratedActions">
+          <button className="secondary" onClick={back}>← Back</button>
+          {next && <button className="primary" onClick={next}>{nextLabel || "Continue →"}</button>}
+        </div>
+      </div>
+      <div className="integratedFrameCard">
+        <iframe title={title} src={src} className="integratedFrame" />
+      </div>
+    </div>
+  )
 }
 
 

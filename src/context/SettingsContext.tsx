@@ -75,6 +75,25 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     }
   }, [settings])
 
+  // Keep settings synchronized when another project page/window changes them.
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== STORAGE_KEY || !event.newValue) return
+      try {
+        const parsed = JSON.parse(event.newValue) as Partial<Settings>
+        setSettings({
+          ...DEFAULT_SETTINGS,
+          ...parsed,
+          notifications: { ...DEFAULT_SETTINGS.notifications, ...parsed.notifications },
+        })
+      } catch {
+        // Ignore malformed storage values.
+      }
+    }
+    window.addEventListener('storage', onStorage)
+    return () => window.removeEventListener('storage', onStorage)
+  }, [])
+
   // Apply theme (dark mode) to <html>
   useEffect(() => {
     const root = document.documentElement
