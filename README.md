@@ -270,7 +270,7 @@ Possible future improvements include:
 
 ## Team
 
-Project: NOVA
+NOVA
 
 Hackathon: Smart India Hackathon (SIH) 2026
 
