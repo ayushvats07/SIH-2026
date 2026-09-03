@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AYUSH Care | Search Patients</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7f7;
+    color: #17202a;
+}
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 110px;
+    background: #102b2a;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 28px;
+    gap: 25px;
+}
+
+.logo {
+    width: 58px;
+    height: 78px;
+    border-radius: 18px;
+    background: #dff4f1;
+    color: #167c73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.nav-item {
+    width: 60px;
+    height: 60px;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.nav-item.active {
+    background: #164c4a;
+}
+
+/* MAIN */
+.main {
+    margin-left: 110px;
+    padding: 42px 55px;
+    max-width: 1250px;
+}
+
+/* HEADER */
+.tag {
+    color: #147c73;
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #6f7b83;
+    font-size: 18px;
+    margin-bottom: 35px;
+}
+
+/* SEARCH */
+.search-box {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+.search-row {
+    display: flex;
+    gap: 15px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 17px 20px;
+    border: 1px solid #d9e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #16877d;
+}
+
+.search-btn {
+    border: none;
+    background: #147d73;
+    color: white;
+    padding: 0 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    margin-top: 17px;
+}
+
+.filter {
+    padding: 11px 15px;
+    border: 1px solid #d9e0e0;
+    background: #fafcfc;
+    border-radius: 10px;
+    color: #536168;
+}
+
+/* PATIENT LIST */
+.section-title {
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.patient-card {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.05);
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: #dff4f1;
+    color: #147c73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.name {
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.details {
+    color: #7a858c;
+    font-size: 14px;
+}
+
+.status {
+    padding: 7px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.active-status {
+    background: #e3f5e9;
+    color: #26804a;
+}
+
+.follow-status {
+    background: #fff4d9;
+    color: #9a7015;
+}
+
+.view-btn {
+    margin-left: 20px;
+    border: 1px solid #168277;
+    background: white;
+    color: #147c73;
+    padding: 10px 17px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+
+    .sidebar {
+        width: 75px;
+    }
+
+    .logo {
+        width: 45px;
+        height: 60px;
+        font-size: 26px;
+    }
+
+    .nav-item {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+
+    .main {
+        margin-left: 75px;
+        padding: 25px 18px;
+    }
+
+    h1 {
+        font-size: 31px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+
+    .search-row {
+        flex-direction: column;
+    }
+
+    .search-btn {
+        padding: 14px;
+    }
+
+    .filters {
+        flex-wrap: wrap;
+    }
+
+    .patient-card {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .patient-info {
+        width: 100%;
+    }
+
+    .view-btn {
+        margin-left: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="logo">A</div>
+
+    <div class="nav-item">📊</div>
+    <div class="nav-item active">🔎</div>
+    <div class="nav-item">⏱️</div>
+    <div class="nav-item">🔔</div>
+    <div class="nav-item">📄</div>
+    <div class="nav-item">⚙️</div>
+    <div class="nav-item">?</div>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+    <div class="tag">SIH 2026 · SIH26047</div>
+
+    <h1>Search Patients</h1>
+
+    <p class="subtitle">
+        Find patients and quickly access their clinical history.
+    </p>
+
+
+    <!-- SEARCH BOX -->
+    <div class="search-box">
+
+        <div class="search-row">
+
+            <input
+                type="text"
+                id="searchInput"
+                class="search-input"
+                placeholder="Search by patient name or patient ID..."
+                onkeyup="searchPatients()"
+            >
+
+            <button class="search-btn" onclick="searchPatients()">
+                🔎 Search
+            </button>
+
+        </div>
+
+        <div class="filters">
+            <select class="filter" id="statusFilter" onchange="searchPatients()">
+                <option value="all">All Patients</option>
+                <option value="active">Active</option>
+                <option value="follow">Follow-up</option>
+            </select>
+
+            <select class="filter">
+                <option>All Records</option>
+                <option>Recent Visits</option>
+                <option>Pending Follow-ups</option>
+            </select>
+        </div>
+
+    </div>
+
+
+    <!-- PATIENT LIST -->
+    <h2 class="section-title">Patient List</h2>
+
+    <div id="patientList">
+
+        <div class="patient-card"
+             data-name="rahul kumar"
+             data-id="ay-2026-00421"
+             data-status="active">
+
+            <div class="patient-info">
+
+                <div class="avatar">RK</div>
+
+                <div>
+                    <div class="name">Rahul Kumar</div>
+                    <div class="details">
+                        Patient ID: AY-2026-00421 · 34 years · Male
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <span class="status active-status">Active</span>
+                <button class="view-btn"
+                        onclick="openPatient('Rahul Kumar')">
+                    View
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="patient-card"
+             data-name="anita sharma"
+             data-id="ay-2026-00318"
+             data-status="follow">
+
+            <div class="patient-info">
+
+                <div class="avatar">AS</div>
+
+                <div>
+                    <div class="name">Anita Sharma</div>
+                    <div class="details">
+                        Patient ID: AY-2026-00318 · 42 years · Female
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <span class="status follow-status">Follow-up</span>
+                <button class="view-btn"
+                        onclick="openPatient('Anita Sharma')">
+                    View
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="patient-card"
+             data-name="rohit verma"
+             data-id="ay-2026-00287"
+             data-status="active">
+
+            <div class="patient-info">
+
+                <div class="avatar">RV</div>
+
+                <div>
+                    <div class="name">Rohit Verma</div>
+                    <div class="details">
+                        Patient ID: AY-2026-00287 · 29 years · Male
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <span class="status active-status">Active</span>
+                <button class="view-btn"
+                        onclick="openPatient('Rohit Verma')">
+                    View
+                </button>
+            </div>
+
+        </div>
+
+
+        <div class="patient-card"
+             data-name="neha singh"
+             data-id="ay-2026-00194"
+             data-status="follow">
+
+            <div class="patient-info">
+
+                <div class="avatar">NS</div>
+
+                <div>
+                    <div class="name">Neha Singh</div>
+                    <div class="details">
+                        Patient ID: AY-2026-00194 · 37 years · Female
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <span class="status follow-status">Follow-up</span>
+                <button class="view-btn"
+                        onclick="openPatient('Neha Singh')">
+                    View
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+function searchPatients() {
+
+    const input =
+        document.getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const filter =
+        document.getElementById("statusFilter").value;
+
+    const patients =
+        document.querySelectorAll(".patient-card");
+
+    patients.forEach(function(patient) {
+
+        const name =
+            patient.dataset.name;
+
+        const id =
+            patient.dataset.id;
+
+        const status =
+            patient.dataset.status;
+
+        const matchesSearch =
+            name.includes(input) ||
+            id.includes(input);
+
+        const matchesFilter =
+            filter === "all" ||
+            status === filter;
+
+        if (matchesSearch && matchesFilter) {
+            patient.style.display = "flex";
+        } else {
+            patient.style.display = "none";
+        }
+
+    });
+}
+
+
+function openPatient(name) {
+
+    alert(
+        "Opening patient record for " + name
+    );
+
+}
+
+</script>
+
+</body>
+  </html>
