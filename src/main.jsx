@@ -26,6 +26,7 @@ const pages = [
   "Vitals & Examination",
   "Patient Timeline",
   "Patient Report",
+  "Final Case Summary"
 ];
 
 function App() {
