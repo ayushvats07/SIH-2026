@@ -27,11 +27,11 @@ const pages = [
   "Patient Timeline",
   "Patient Report",
   "Final Case Summary"
+  const [page, setPage] = useState(1);
+  const [showSettings, setShowSettings] = useState(false);
 ];
 
 function App() {
-  const [page, setPage] = useState(1);
-  const [showSettings, setShowSettings] = useState(false);
   const [settings, setSettings] = useState(() => {
     try {
       const saved = localStorage.getItem(SETTINGS_KEY);
@@ -1581,7 +1581,577 @@ function IntegratedPage({ title, subtitle, src, back, next, nextLabel }) {
   )
 }
 
+/* =========================
+   PAGE 14 - FINAL CASE SUMMARY
+========================= */
 
+function FinalCaseSummary({ back }) {
+
+  const missingFields = [
+    {
+      id: "emergency-contact",
+      label: "Emergency contact",
+      section: "Patient Information"
+    },
+    {
+      id: "family-history",
+      label: "Family history",
+      section: "History"
+    },
+    {
+      id: "attachments",
+      label: "Clinical attachment",
+      section: "Attachments"
+    }
+  ];
+
+  const handleMissingField = (field) => {
+    const element = document.getElementById(field.id);
+
+    if (element) {
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+      element.focus?.();
+    }
+  };
+
+  return (
+    <div className="finalSummary">
+
+      {/* HEADER */}
+      <div className="pageHeader">
+
+        <small>
+          CASE REVIEW
+        </small>
+
+        <h1>
+          Final Case Summary
+        </h1>
+
+        <p>
+          Review all patient information before completing the case.
+        </p>
+
+      </div>
+
+
+      {/* COMPLETENESS */}
+      <div className="card completenessCard">
+
+        <div className="completenessHeader">
+
+          <div>
+
+            <span className="badge">
+              Case Review
+            </span>
+
+            <h2>
+              Case Completeness
+            </h2>
+
+            <p>
+              Most required information has been captured.
+            </p>
+
+          </div>
+
+          <div className="completenessScore">
+            87%
+          </div>
+
+        </div>
+
+
+        <div className="progressTrack">
+
+          <div
+            className="progressFill"
+            style={{ width: "87%" }}
+          />
+
+        </div>
+
+
+        <div className="missingSummary">
+
+          <b>
+            ⚠ 3 fields need attention
+          </b>
+
+          <span>
+            Click a missing field below to review it.
+          </span>
+
+        </div>
+
+
+        <div className="missingFields">
+
+          {missingFields.map((field) => (
+
+            <button
+              key={field.id}
+              className="missingField"
+              onClick={() =>
+                handleMissingField(field)
+              }
+            >
+
+              <span>
+                ⚠
+              </span>
+
+              <div>
+
+                <b>
+                  {field.label}
+                </b>
+
+                <small>
+                  {field.section}
+                </small>
+
+              </div>
+
+              <span>
+                →
+              </span>
+
+            </button>
+
+          ))}
+
+        </div>
+
+      </div>
+
+
+      {/* PATIENT INFORMATION */}
+      <SummarySection
+        title="Patient Information"
+        icon="👤"
+      >
+
+        <div className="summaryGrid">
+
+          <SummaryItem
+            label="Patient Name"
+            value="Demo Patient"
+          />
+
+          <SummaryItem
+            label="Age"
+            value="28 years"
+          />
+
+          <SummaryItem
+            label="Sex"
+            value="Female"
+          />
+
+          <SummaryItem
+            label="Language"
+            value="English"
+          />
+
+          <SummaryItem
+            label="Contact Number"
+            value="Not provided"
+          />
+
+          <div id="emergency-contact">
+            <SummaryItem
+              label="Emergency Contact"
+              value="Missing"
+              warning
+            />
+          </div>
+
+        </div>
+
+      </SummarySection>
+
+
+      {/* SYMPTOMS */}
+      <SummarySection
+        title="Symptoms & Chief Complaint"
+        icon="🩺"
+      >
+
+        <div className="summaryBlock">
+
+          <b>
+            Primary Complaint
+          </b>
+
+          <p>
+            Patient reports general discomfort and fatigue.
+          </p>
+
+        </div>
+
+        <div className="summaryTags">
+
+          {[
+            "Fatigue",
+            "Headache",
+            "Sleep Issue"
+          ].map((item) => (
+
+            <span
+              className="summaryTag"
+              key={item}
+            >
+              ✓ {item}
+            </span>
+
+          ))}
+
+        </div>
+
+      </SummarySection>
+
+
+      {/* HISTORY */}
+      <SummarySection
+        title="History"
+        icon="📋"
+      >
+
+        <div className="summaryGrid">
+
+          <SummaryItem
+            label="Medical History"
+            value="Recorded"
+          />
+
+          <SummaryItem
+            label="Surgical History"
+            value="Recorded"
+          />
+
+          <SummaryItem
+            label="Current Medication"
+            value="Recorded"
+          />
+
+          <SummaryItem
+            label="Allergies"
+            value="Recorded"
+          />
+
+          <div id="family-history">
+            <SummaryItem
+              label="Family History"
+              value="Missing"
+              warning
+            />
+          </div>
+
+        </div>
+
+      </SummarySection>
+
+
+      {/* LIFESTYLE */}
+      <SummarySection
+        title="Lifestyle"
+        icon="🌿"
+      >
+
+        <div className="summaryGrid">
+
+          <SummaryItem
+            label="Diet"
+            value="Mixed"
+          />
+
+          <SummaryItem
+            label="Sleep"
+            value="Regular"
+          />
+
+          <SummaryItem
+            label="Activity"
+            value="Moderate"
+          />
+
+          <SummaryItem
+            label="Stress"
+            value="Moderate"
+          />
+
+          <SummaryItem
+            label="Occupation"
+            value="Not specified"
+          />
+
+          <SummaryItem
+            label="Routine"
+            value="Recorded"
+          />
+
+        </div>
+
+      </SummarySection>
+
+
+      {/* AYUSH ASSESSMENT */}
+      <SummarySection
+        title="AYUSH / NOVA Assessment"
+        icon="✨"
+      >
+
+        <div className="assessmentCard">
+
+          <div>
+
+            <small>
+              Prakriti
+            </small>
+
+            <strong>
+              Vata
+            </strong>
+
+          </div>
+
+          <div>
+
+            <small>
+              Observation
+            </small>
+
+            <strong>
+              Practitioner assessment recorded
+            </strong>
+
+          </div>
+
+        </div>
+
+      </SummarySection>
+
+
+      {/* VITALS */}
+      <SummarySection
+        title="Vitals & Examination"
+        icon="❤️"
+      >
+
+        <div className="vitalsGrid">
+
+          <Vital
+            label="Height"
+            value="165 cm"
+          />
+
+          <Vital
+            label="Weight"
+            value="60 kg"
+          />
+
+          <Vital
+            label="BMI"
+            value="22.0"
+          />
+
+          <Vital
+            label="Blood Pressure"
+            value="120/80"
+          />
+
+          <Vital
+            label="Pulse"
+            value="72 bpm"
+          />
+
+          <Vital
+            label="Temperature"
+            value="36.8 °C"
+          />
+
+          <Vital
+            label="SpO₂"
+            value="98%"
+          />
+
+        </div>
+
+      </SummarySection>
+
+
+      {/* ATTACHMENTS */}
+      <SummarySection
+        title="Attachments"
+        icon="📎"
+      >
+
+        <div
+          id="attachments"
+          className="attachmentBox"
+          tabIndex="-1"
+        >
+
+          <div className="attachmentIcon">
+            📎
+          </div>
+
+          <div>
+
+            <b>
+              No clinical attachment added
+            </b>
+
+            <small>
+              Optional reports, documents or images can be attached.
+            </small>
+
+          </div>
+
+          <span className="warningBadge">
+            Missing
+          </span>
+
+        </div>
+
+      </SummarySection>
+
+
+      {/* FINAL WARNING */}
+      <div className="card finalWarning">
+
+        <div className="warningIcon">
+          ⚠
+        </div>
+
+        <div>
+
+          <h3>
+            Review before completing
+          </h3>
+
+          <p>
+            Please review the highlighted missing fields.
+            You can still go back and update the case.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      {/* NAVIGATION */}
+      <div className="navigation">
+
+        <button
+          className="secondary"
+          onClick={back}
+        >
+          ← Back
+        </button>
+
+        <button
+          className="primary"
+          onClick={() =>
+            alert("Case review completed successfully.")
+          }
+        >
+          Complete Case ✓
+        </button>
+
+      </div>
+
+    </div>
+  );
+}
+
+
+/* =========================
+   SUMMARY COMPONENTS
+========================= */
+
+function SummarySection({
+  title,
+  icon,
+  children
+}) {
+
+  return (
+    <section className="card summarySection">
+
+      <div className="summarySectionHeader">
+
+        <span className="summaryIcon">
+          {icon}
+        </span>
+
+        <h2>
+          {title}
+        </h2>
+
+      </div>
+
+      {children}
+
+    </section>
+  );
+}
+
+
+function SummaryItem({
+  label,
+  value,
+  warning = false
+}) {
+
+  return (
+    <div
+      className={
+        warning
+          ? "summaryItem warning"
+          : "summaryItem"
+      }
+    >
+
+      <small>
+        {label}
+      </small>
+
+      <b>
+        {warning ? "⚠ " : ""}
+        {value}
+      </b>
+
+    </div>
+  );
+}
+
+
+function Vital({
+  label,
+  value
+}) {
+
+  return (
+    <div className="vitalCard">
+
+      <small>
+        {label}
+      </small>
+
+      <strong>
+        {value}
+      </strong>
+
+    </div>
+  );
+}
 createRoot(
   document.getElementById("root")
 ).render(
