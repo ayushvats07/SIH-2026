@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AYUSH Care | Follow-up & Reminders</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f7f7;
+    color: #17232d;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 110px;
+    background: #0d3432;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 35px 0;
+    gap: 28px;
+}
+
+.logo {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    background: #d9f2ef;
+    color: #117d73;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.nav-item {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    color: white;
+}
+
+.nav-item.active {
+    background: #15544f;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 110px;
+    padding: 45px 55px;
+    max-width: 1500px;
+}
+
+/* HEADER */
+
+.header-label {
+    color: #137d73;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #72808a;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* TOP BUTTONS */
+
+.actions {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.primary-btn {
+    background: #147f75;
+    color: white;
+    padding: 15px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.secondary-btn {
+    background: white;
+    color: #26343d;
+    padding: 15px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    border: 1px solid #dce4e4;
+}
+
+/* SUMMARY CARDS */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.summary-card {
+    background: white;
+    border: 1px solid #e1e8e8;
+    border-radius: 20px;
+    padding: 25px;
+}
+
+.summary-title {
+    color: #78858d;
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.summary-number {
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.summary-note {
+    margin-top: 8px;
+    color: #147f75;
+    font-size: 14px;
+}
+
+/* SEARCH */
+
+.controls {
+    background: white;
+    border: 1px solid #e1e8e8;
+    border-radius: 20px;
+    padding: 22px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.search-box {
+    flex: 1;
+    padding: 15px 18px;
+    border: 1px solid #dce4e4;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+}
+
+select {
+    padding: 15px 18px;
+    border: 1px solid #dce4e4;
+    border-radius: 12px;
+    background: white;
+    font-size: 15px;
+}
+
+/* FOLLOW-UP LIST */
+
+.section-title {
+    font-size: 24px;
+    margin-bottom: 18px;
+}
+
+.followup-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.followup-card {
+    background: white;
+    border: 1px solid #e1e8e8;
+    border-radius: 18px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 240px;
+}
+
+.avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 14px;
+    background: #dff3f0;
+    color: #147f75;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.patient-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.patient-id {
+    color: #8a969c;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.date-box {
+    min-width: 180px;
+}
+
+.date-label {
+    color: #8a969c;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.date {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.reason {
+    flex: 1;
+    color: #68767e;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.status {
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.status.upcoming {
+    background: #e2f3ef;
+    color: #147f75;
+}
+
+.status.overdue {
+    background: #fff0ed;
+    color: #c94b3d;
+}
+
+.status.completed {
+    background: #edf1f1;
+    color: #68767e;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.small-btn {
+    padding: 10px 13px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.view-btn {
+    background: #eef5f4;
+    color: #147f75;
+}
+
+.complete-btn {
+    background: #147f75;
+    color: white;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        width: 75px;
+    }
+
+    .main {
+        margin-left: 75px;
+        padding: 30px 25px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .followup-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .patient-info,
+    .date-box {
+        min-width: auto;
+    }
+
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .actions {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .sidebar {
+        width: 65px;
+        gap: 20px;
+        padding-top: 25px;
+    }
+
+    .logo,
+    .nav-item {
+        width: 45px;
+        height: 45px;
+    }
+
+    .main {
+        margin-left: 65px;
+        padding: 25px 15px;
+    }
+
+    h1 {
+        font-size: 32px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+    }
+
+    .card-actions {
+        width: 100%;
+    }
+
+    .small-btn {
+        flex: 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">A</div>
+
+    <div class="nav-item">📊</div>
+    <div class="nav-item">🔎</div>
+    <div class="nav-item">🕘</div>
+
+    <div class="nav-item active">🔔</div>
+
+    <div class="nav-item">📄</div>
+    <div class="nav-item">⚙️</div>
+    <div class="nav-item">❓</div>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+
+<div class="main">
+
+    <div class="header-label">
+        AYUSH CARE · PATIENT CONTINUITY
+    </div>
+
+    <h1>Follow-up & Reminders</h1>
+
+    <p class="subtitle">
+        Track upcoming patient follow-ups and important care reminders.
+    </p>
+
+
+    <div class="actions">
+
+        <button class="primary-btn" onclick="addReminder()">
+            + New Reminder
+        </button>
+
+        <button class="secondary-btn" onclick="showAll()">
+            View All Follow-ups
+        </button>
+
+    </div>
+
+
+    <!-- SUMMARY -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Due Today
+            </div>
+
+            <div class="summary-number">
+                5
+            </div>
+
+            <div class="summary-note">
+                Requires attention
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                This Week
+            </div>
+
+            <div class="summary-number">
+                12
+            </div>
+
+            <div class="summary-note">
+                Upcoming follow-ups
+            </div>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <div class="summary-title">
+                Overdue
+            </div>
+
+            <div class="summary-number">
+                3
+            </div>
+
+            <div class="summary-note">
+                Needs review
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- SEARCH / FILTER -->
+
+    <div class="controls">
+
+        <input
+            class="search-box"
+            type="text"
+            id="searchInput"
+            placeholder="Search patient name or ID..."
+            onkeyup="searchPatients()"
+        >
+
+        <select id="statusFilter" onchange="filterStatus()">
+
+            <option value="all">
+                All Status
+            </option>
+
+            <option value="upcoming">
+                Upcoming
+            </option>
+
+            <option value="overdue">
+                Overdue
+            </option>
+
+            <option value="completed">
+                Completed
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- FOLLOW-UP LIST -->
+
+    <h2 class="section-title">
+        Follow-up Schedule
+    </h2>
+
+
+    <div class="followup-list" id="followupList">
+
+
+        <!-- PATIENT 1 -->
+
+        <div class="followup-card" data-status="upcoming">
+
+            <div class="patient-info">
+
+                <div class="avatar">
+                    RK
+                </div>
+
+                <div>
+                    <div class="patient-name">
+                        Rahul Kumar
+                    </div>
+
+                    <div class="patient-id">
+                        Patient ID: AY-2026-00421
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="date-box">
+
+                <div class="date-label">
+                    Follow-up
+                </div>
+
+                <div class="date">
+                    13 Sep 2026 · 10:30 AM
+                </div>
+
+            </div>
+
+
+            <div class="reason">
+                Review sleep quality and fatigue improvement.
+            </div>
+
+
+            <div class="status upcoming">
+                Upcoming
+            </div>
+
+
+            <div class="card-actions">
+
+                <button
+                    class="small-btn view-btn"
+                    onclick="viewPatient('Rahul Kumar')">
+                    View
+                </button>
+
+                <button
+                    class="small-btn complete-btn"
+                    onclick="completeFollowup(this)">
+                    Complete
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PATIENT 2 -->
+
+        <div class="followup-card" data-status="overdue">
+
+            <div class="patient-info">
+
+                <div class="avatar">
+                    AS
+                </div>
+
+                <div>
+                    <div class="patient-name">
+                        Anita Sharma
+                    </div>
+
+                    <div class="patient-id">
+                        Patient ID: AY-2026-00318
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="date-box">
+
+                <div class="date-label">
+                    Follow-up
+                </div>
+
+                <div class="date">
+                    02 Sep 2026 · 11:00 AM
+                </div>
+
+            </div>
+
+
+            <div class="reason">
+                Medication response and symptom review.
+            </div>
+
+
+            <div class="status overdue">
+                Overdue
+            </div>
+
+
+            <div class="card-actions">
+
+                <button
+                    class="small-btn view-btn"
+                    onclick="viewPatient('Anita Sharma')">
+                    View
+                </button>
+
+                <button
+                    class="small-btn complete-btn"
+                    onclick="completeFollowup(this)">
+                    Complete
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PATIENT 3 -->
+
+        <div class="followup-card" data-status="upcoming">
+
+            <div class="patient-info">
+
+                <div class="avatar">
+                    MS
+                </div>
+
+                <div>
+                    <div class="patient-name">
+                        Mohit Singh
+                    </div>
+
+                    <div class="patient-id">
+                        Patient ID: AY-2026-00512
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="date-box">
+
+                <div class="date-label">
+                    Follow-up
+                </div>
+
+                <div class="date">
+                    15 Sep 2026 · 02:00 PM
+                </div>
+
+            </div>
+
+
+            <div class="reason">
+                Follow-up consultation and progress assessment.
+            </div>
+
+
+            <div class="status upcoming">
+                Upcoming
+            </div>
+
+
+            <div class="card-actions">
+
+                <button
+                    class="small-btn view-btn"
+                    onclick="viewPatient('Mohit Singh')">
+                    View
+                </button>
+
+                <button
+                    class="small-btn complete-btn"
+                    onclick="completeFollowup(this)">
+                    Complete
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PATIENT 4 -->
+
+        <div class="followup-card" data-status="completed">
+
+            <div class="patient-info">
+
+                <div class="avatar">
+                    PK
+                </div>
+
+                <div>
+                    <div class="patient-name">
+                        Priya Kapoor
+                    </div>
+
+                    <div class="patient-id">
+                        Patient ID: AY-2026-00287
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="date-box">
+
+                <div class="date-label">
+                    Follow-up
+                </div>
+
+                <div class="date">
+                    30 Aug 2026 · 09:30 AM
+                </div>
+
+            </div>
+
+
+            <div class="reason">
+                Routine follow-up consultation completed.
+            </div>
+
+
+            <div class="status completed">
+                Completed
+            </div>
+
+
+            <div class="card-actions">
+
+                <button
+                    class="small-btn view-btn"
+                    onclick="viewPatient('Priya Kapoor')">
+                    View
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+function addReminder() {
+
+    alert("New reminder form will be connected by the team.");
+
+}
+
+
+function showAll() {
+
+    document.getElementById("searchInput").value = "";
+
+    document.getElementById("statusFilter").value = "all";
+
+    filterStatus();
+
+}
+
+
+function viewPatient(name) {
+
+    alert("Opening patient record: " + name);
+
+}
+
+
+function completeFollowup(button) {
+
+    const card = button.closest(".followup-card");
+
+    const status = card.querySelector(".status");
+
+    status.textContent = "Completed";
+
+    status.className = "status completed";
+
+    card.setAttribute("data-status", "completed");
+
+    button.remove();
+
+}
+
+
+function searchPatients() {
+
+    const search =
+        document
+        .getElementById("searchInput")
+        .value
+        .toLowerCase();
+
+    const cards =
+        document.querySelectorAll(".followup-card");
+
+    cards.forEach(function(card) {
+
+        const text =
+            card.innerText.toLowerCase();
+
+        if (text.includes(search)) {
+
+            card.style.display = "flex";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+function filterStatus() {
+
+    const filter =
+        document
+        .getElementById("statusFilter")
+        .value;
+
+    const cards =
+        document.querySelectorAll(".followup-card");
+
+    cards.forEach(function(card) {
+
+        const status =
+            card.getAttribute("data-status");
+
+        if (filter === "all" || status === filter) {
+
+            card.style.display = "flex";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+  </html>
