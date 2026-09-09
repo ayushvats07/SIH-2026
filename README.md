@@ -23,6 +23,10 @@ The application follows a guided workflow that helps healthcare professionals co
 11. Vitals & Examination
 12. Patient Timeline
 13. Patient Report
+14. Final Case Summary
+15. Follow-up & Reminders
+16. Notifications
+17. Search Patients
 
 ---
 
@@ -43,7 +47,7 @@ The application follows a guided workflow that helps healthcare professionals co
 * High Contrast Mode
 * Accessibility Support
 * Reduced Motion Option
-* Multiple Language Options
+* Language Selection Option
 * Settings Persistence using Local Storage
 
 ---
@@ -56,7 +60,7 @@ The application follows a guided workflow that helps healthcare professionals co
 * JavaScript / JSX – Application logic
 * CSS – Styling and responsive UI
 * LocalStorage – Saving user interface preferences
-* HTML – Integrated timeline and report pages
+* HTML – Integrated timeline, report, follow-up, notifications, and search pages
 
 ---
 
@@ -74,6 +78,9 @@ NOVA/
 │       ├── Dashboard.html
 │       ├── timeline.html
 │       ├── report.html
+│       ├── followup.html
+│       ├── notifications.html
+│       ├── search.html
 │       └── legacy-styles.css
 │
 └── src/
@@ -178,7 +185,7 @@ Users can customize:
 
 ### Language
 
-The interface provides options for:
+The interface provides a language selection option for:
 
 * English
 * Hindi

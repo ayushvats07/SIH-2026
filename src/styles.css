@@ -1143,3 +1143,177 @@ html.dark .settingsSection { background: #142734; border-color: #29434e; }
 html.dark .settingsOption { border-color: #29434e; }
 html.dark .segmented { background: #203945; }
 html.dark .settingsOption select { background: #10222e; color: #eaf5f5; border-color: #38515d; }
+
+/* ================================
+   LOGIN SCREEN
+================================ */
+
+.loginScreen {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: hidden;
+
+  background: linear-gradient(135deg, #0d2634 0%, #0d5269 45%, #176b87 100%);
+}
+
+.loginGlow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.loginGlowOne {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: -120px;
+  background: rgba(23, 107, 135, 0.45);
+}
+
+.loginGlowTwo {
+  width: 380px;
+  height: 380px;
+  bottom: -120px;
+  right: -100px;
+  background: rgba(25, 135, 84, 0.25);
+}
+
+.loginCard {
+  position: relative;
+  z-index: 1;
+
+  width: 100%;
+  max-width: 400px;
+
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 20px;
+  padding: 36px 32px 28px;
+
+  box-shadow: 0 25px 60px rgba(4, 20, 30, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.loginBrand {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.loginBrandIcon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+
+  border-radius: 16px;
+  background: linear-gradient(135deg, #176b87, #0d5269);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+
+  box-shadow: 0 10px 24px rgba(23, 107, 135, 0.35);
+}
+
+.loginBrand h1 {
+  font-size: 21px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.loginBrand p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.loginLabel {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 14px 0 6px;
+}
+
+.loginInput {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--primary-light);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.loginInput:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(23, 107, 135, 0.15);
+}
+
+.loginPasswordWrap {
+  position: relative;
+}
+
+.loginPasswordToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: none;
+  border: none;
+  font-size: 15px;
+  color: var(--muted);
+  padding: 4px;
+}
+
+.loginError {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fdecec;
+  border: 1px solid #f5c2c2;
+  color: #b42318;
+  font-size: 12.5px;
+}
+
+.loginSubmit {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(135deg, #176b87, #0d5269);
+  color: white;
+  font-size: 14.5px;
+  font-weight: 600;
+
+  box-shadow: 0 12px 24px rgba(23, 107, 135, 0.3);
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.loginSubmit:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.loginSubmit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.loginHint {
+  margin-top: 18px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 12px;
+  text-align: center;
+}

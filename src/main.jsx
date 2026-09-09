@@ -26,12 +26,16 @@ const pages = [
   "Vitals & Examination",
   "Patient Timeline",
   "Patient Report",
-  "Final Case Summary"
-  const [page, setPage] = useState(1);
-  const [showSettings, setShowSettings] = useState(false);
+  "Final Case Summary",
+  "Follow-up & Reminders",
+  "Notifications",
+  "Search Patients"
 ];
 
 function App() {
+  const [page, setPage] = useState(1);
+  const [showSettings, setShowSettings] = useState(false);
+
   const [settings, setSettings] = useState(() => {
     try {
       const saved = localStorage.getItem(SETTINGS_KEY);
@@ -242,6 +246,43 @@ function App() {
               title="Patient Report"
               subtitle="Review the patient summary and clinical report."
               src="/pages/report.html"
+              back={back}
+              next={next}
+              nextLabel="Final Case Summary →"
+            />
+          )}
+
+          {page === 14 && (
+            <FinalCaseSummary back={back} />
+          )}
+
+          {page === 15 && (
+            <IntegratedPage
+              title="Follow-up & Reminders"
+              subtitle="Manage patient follow-ups and reminders."
+              src="/pages/followup.html"
+              back={back}
+              next={next}
+              nextLabel="View Notifications →"
+            />
+          )}
+
+          {page === 16 && (
+            <IntegratedPage
+              title="Notifications"
+              subtitle="Review patient and workflow notifications."
+              src="/pages/notifications.html"
+              back={back}
+              next={next}
+              nextLabel="Search Patients →"
+            />
+          )}
+
+          {page === 17 && (
+            <IntegratedPage
+              title="Search Patients"
+              subtitle="Search and review patient records."
+              src="/pages/search.html"
               back={back}
             />
           )}
@@ -1565,7 +1606,7 @@ function IntegratedPage({ title, subtitle, src, back, next, nextLabel }) {
     <div className="integratedPage">
       <div className="integratedPageHeader">
         <div>
-          <span className="badge">AYUSH Care · Case Workflow</span>
+          <span className="badge">NOVA · Case Workflow</span>
           <h1>{title}</h1>
           <p>{subtitle}</p>
         </div>
@@ -1903,7 +1944,7 @@ function FinalCaseSummary({ back }) {
 
       {/* AYUSH ASSESSMENT */}
       <SummarySection
-        title="AYUSH / NOVA Assessment"
+        title="NOVA Assessment"
         icon="✨"
       >
 
@@ -2152,8 +2193,142 @@ function Vital({
     </div>
   );
 }
+/* =========================
+   LOGIN GATE
+========================= */
+
+const VALID_EMAIL = "nova@gmail.com";
+const VALID_PASSWORD = "123456";
+
+function LoginScreen({ onSuccess }) {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    setTimeout(() => {
+      if (
+        email.trim().toLowerCase() === VALID_EMAIL &&
+        password === VALID_PASSWORD
+      ) {
+        onSuccess();
+      } else {
+        setError("Invalid email or password. Please try again.");
+        setIsSubmitting(false);
+      }
+    }, 450);
+  };
+
+  return (
+    <div className="loginScreen">
+
+      <div className="loginGlow loginGlowOne" />
+      <div className="loginGlow loginGlowTwo" />
+
+      <div className="loginCard">
+
+        <div className="loginBrand">
+          <div className="loginBrandIcon">
+            🩺
+          </div>
+          <h1>
+            NOVA Case-Taking
+          </h1>
+          <p>
+            Sign in to access your clinical workspace
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit} noValidate>
+
+          <label className="loginLabel" htmlFor="loginEmail">
+            Email address
+          </label>
+          <input
+            id="loginEmail"
+            className="loginInput"
+            type="email"
+            autoComplete="email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <label className="loginLabel" htmlFor="loginPassword">
+            Password
+          </label>
+          <div className="loginPasswordWrap">
+            <input
+              id="loginPassword"
+              className="loginInput"
+              type={showPassword ? "text" : "password"}
+              autoComplete="current-password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="loginPasswordToggle"
+              onClick={() => setShowPassword((s) => !s)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? "🙈" : "👁"}
+            </button>
+          </div>
+
+          {error && (
+            <div className="loginError">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="loginSubmit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Signing in..." : "Sign in →"}
+          </button>
+
+        </form>
+
+        <div className="loginHint">
+          🔒 Demo credentials: <b>nova@gmail.com</b> / <b>123456</b>
+        </div>
+
+      </div>
+
+    </div>
+  );
+}
+
+function Root() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  if (!isAuthenticated) {
+    return <LoginScreen onSuccess={() => setIsAuthenticated(true)} />;
+  }
+
+  return <App />;
+}
+
 createRoot(
   document.getElementById("root")
 ).render(
-  <App />
+  <Root />
 );

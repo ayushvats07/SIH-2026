@@ -12,14 +12,19 @@ const pages = [
   "Chief Complaint",
   "History",
   "Lifestyle",
-  "AYUSH Assessment",
-  "Vitals & Examination"
+  "NOVA Assessment",
+  "Vitals & Examination",
+  "Patient Timeline",
+  "Patient Report",
+  "Follow-up & Reminders",
+  "Notifications",
+  "Search Patients"
 ];
 
 function App() {
   const [page, setPage] = useState(1);
 
-  const next = () => setPage((p) => Math.min(p + 1, 11));
+  const next = () => setPage((p) => Math.min(p + 1, pages.length));
   const back = () => setPage((p) => Math.max(p - 1, 1));
 
   return (
@@ -108,7 +113,60 @@ function App() {
           )}
 
           {page === 11 && (
-            <Page11 back={back} />
+            <Page11 back={back} next={next} />
+          )}
+
+          {page === 12 && (
+            <IntegratedPage
+              title="Patient Timeline"
+              subtitle="Review the patient journey and previous visits."
+              src="/pages/timeline.html"
+              back={back}
+              next={next}
+              nextText="View Patient Report"
+            />
+          )}
+
+          {page === 13 && (
+            <IntegratedPage
+              title="Patient Report"
+              subtitle="Review and print the patient's clinical report."
+              src="/pages/report.html"
+              back={back}
+              next={next}
+              nextText="Open Follow-up"
+            />
+          )}
+
+          {page === 14 && (
+            <IntegratedPage
+              title="Follow-up & Reminders"
+              subtitle="Manage patient follow-ups and reminders."
+              src="/pages/followup.html"
+              back={back}
+              next={next}
+              nextText="View Notifications"
+            />
+          )}
+
+          {page === 15 && (
+            <IntegratedPage
+              title="Notifications"
+              subtitle="Review patient and workflow notifications."
+              src="/pages/notifications.html"
+              back={back}
+              next={next}
+              nextText="Search Patients"
+            />
+          )}
+
+          {page === 16 && (
+            <IntegratedPage
+              title="Search Patients"
+              subtitle="Search and review patient records."
+              src="/pages/search.html"
+              back={back}
+            />
           )}
 
         </main>
@@ -476,7 +534,7 @@ function Page6({ next, back }) {
             "Chief Complaint",
             "History",
             "Lifestyle",
-            "AYUSH Assessment",
+            "NOVA Assessment",
             "Vitals / Examination"
           ].map((x, i) => (
 
@@ -500,7 +558,7 @@ function Page6({ next, back }) {
           <p>
             Start with what brought the patient in today,
             then add relevant history, lifestyle,
-            AYUSH observations and examination findings.
+            NOVA observations and examination findings.
           </p>
 
           <button className="primary" onClick={next}>
@@ -693,7 +751,7 @@ function Page10({ next, back }) {
 
   return (
     <Page
-      title="AYUSH Assessment"
+      title="NOVA Assessment"
       subtitle="Record practitioner observations and questionnaire responses."
     >
 
@@ -759,7 +817,7 @@ function Page10({ next, back }) {
    PAGE 11
 ========================= */
 
-function Page11({ back }) {
+function Page11({ back, next }) {
 
   return (
     <Page
@@ -805,10 +863,46 @@ function Page11({ back }) {
 
       <Navigation
         back={back}
-        next={() => alert("Case completed!")}
-        nextText="Finish Case"
+        next={next}
+        nextText="View Patient Timeline"
       />
 
+    </Page>
+  );
+}
+
+
+function IntegratedPage({
+  title,
+  subtitle,
+  src,
+  back,
+  next,
+  nextText
+}) {
+  return (
+    <Page title={title} subtitle={subtitle}>
+      <div className="integratedPage">
+        <div className="integratedFrameCard">
+          <iframe
+            className="integratedFrame"
+            src={src}
+            title={title}
+          />
+        </div>
+      </div>
+
+      <div className="navigation">
+        <button className="secondary" onClick={back}>
+          ← Back
+        </button>
+
+        {next && (
+          <button className="primary" onClick={next}>
+            {nextText || "Continue"} →
+          </button>
+        )}
+      </div>
     </Page>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Stethoscope, CalendarDays, User, Paperclip, Settings2, LifeBuoy } from 'lucide-react'
+import { Stethoscope, CalendarDays, User, Paperclip, Settings2, LifeBuoy, LogOut } from 'lucide-react'
 import { SettingsProvider } from './context/SettingsContext'
 import PractitionerProfilePage from './components/PractitionerProfile'
 import AppointmentMock from './components/AppointmentMock'
@@ -7,11 +7,17 @@ import AttachmentCenter from './components/AttachmentCenter'
 import SettingsAccessibility from './components/SettingsAccessibility'
 import HelpGuidedTour from './components/HelpGuidedTour'
 import Dashboard from './components/Dashboard'
+import Login from './components/Login'
 
 type Page = 'dashboard' | 'profile' | 'appointments' | 'attachments' | 'settings' | 'help'
 
 function App() {
   const [page, setPage] = useState<Page>('dashboard')
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  if (!isAuthenticated) {
+    return <Login onLoginSuccess={() => setIsAuthenticated(true)} />
+  }
 
   return (
     <SettingsProvider>
@@ -91,6 +97,15 @@ function App() {
               >
                 <LifeBuoy className="h-4 w-4" />
                 <span className="hidden sm:inline">Help</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsAuthenticated(false)}
+                aria-label="Log out"
+                title="Log out"
+                className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium text-navy-200 transition-all hover:text-white"
+              >
+                <LogOut className="h-4 w-4" />
               </button>
             </div>
           </div>
